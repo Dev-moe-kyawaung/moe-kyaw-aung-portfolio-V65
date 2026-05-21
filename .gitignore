@@ -1,0 +1,53 @@
+# ─────────────────────────────────────────────
+# .gitignore — Moe Kyaw Aung GitHub Profile Repo
+# ─────────────────────────────────────────────
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node / npm (if any tooling used)
+node_modules/
+npm-debug.log*
+yarn-error.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.env
+.venv
+env/
+venv/
+
+# Build / Output
+dist/
+build/
+*.log
+
+# Secrets (never commit!)
+.env
+.env.local
+secrets.yml
+*.key
+*.pem
+
+# Temp files
+*.tmp
+*.temp
+.cache/

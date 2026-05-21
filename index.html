@@ -1,0 +1,3900 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <!-- ===== META & SEO ===== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Moe Kyaw Aung – Senior Android Developer with 12 years of experience. Expert in Kotlin, Jetpack Compose, Firebase, and Clean Architecture." />
+  <meta name="keywords" content="Android Developer, Kotlin, Jetpack Compose, Firebase, REST API, MVVM, Myanmar Developer, Microsoft, Mobile App Development" />
+  <meta name="author" content="Moe Kyaw Aung" />
+  <meta property="og:title" content="Moe Kyaw Aung | Senior Android Developer" />
+  <meta property="og:description" content="12 years of Android excellence. Kotlin · Jetpack Compose · Firebase · Clean Architecture." />
+  <meta property="og:image" content="https://res.cloudinary.com/dye5qpwii/image/upload/v1778527878/IMG_20260430_053105_uef0yr.png" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0b0b1a" />
+  <title>⭐ Moe Kyaw Aung | Android Senior Developer | V65</title>
+
+  <!-- ===== GOOGLE FONTS ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- ===== BOOTSTRAP 5 ===== -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- ===== FONT AWESOME ===== -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- ===== STYLES ===== -->
+  <style>
+    /* ================================================
+       CSS CUSTOM PROPERTIES — Neon Night Palette
+    ================================================ */
+    :root {
+      --bg-deep:       #0b0b1a;
+      --bg-card:       #1a1a2e;
+      --bg-card2:      #16213e;
+      --cyan:          #00d9ff;
+      --magenta:       #ff00aa;
+      --gold:          #ffd700;
+      --purple:        #7b2fff;
+      --green-neon:    #00ff88;
+      --text-primary:  #e8eaf6;
+      --text-muted:    #8899bb;
+      --glass-bg:      rgba(255,255,255,0.04);
+      --glass-border:  rgba(0,217,255,0.18);
+      --glass-shadow:  0 8px 32px rgba(0,217,255,0.08);
+      --font-display:  'Orbitron', monospace;
+      --font-body:     'Exo 2', sans-serif;
+      --font-code:     'Fira Code', monospace;
+      --transition:    all 0.35s cubic-bezier(0.4,0,0.2,1);
+      --radius:        16px;
+    }
+    [data-theme="light"] {
+      --bg-deep:      #f0f4ff;
+      --bg-card:      #e0e8ff;
+      --bg-card2:     #d0dcff;
+      --text-primary: #0b0b1a;
+      --text-muted:   #334477;
+      --glass-bg:     rgba(0,0,0,0.04);
+      --glass-border: rgba(0,150,220,0.25);
+    }
+
+    /* ================================================
+       RESET & BASE
+    ================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      cursor: none; /* custom cursor */
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; }
+    section { position: relative; }
+
+    /* ================================================
+       CUSTOM CURSOR
+    ================================================ */
+    #cursor-dot {
+      width: 8px; height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 99999;
+      transition: transform 0.1s ease;
+      box-shadow: 0 0 12px var(--cyan), 0 0 24px var(--cyan);
+    }
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border: 2px solid var(--magenta);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 99998;
+      transition: all 0.18s ease;
+      opacity: 0.7;
+    }
+    body:hover #cursor-dot { opacity: 1; }
+
+    /* ================================================
+       PRELOADER
+    ================================================ */
+    #preloader {
+      position: fixed; inset: 0;
+      background: var(--bg-deep);
+      z-index: 99990;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 24px;
+      transition: opacity 0.6s ease;
+    }
+    #preloader.hidden { opacity: 0; pointer-events: none; }
+    .preloader-logo {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      color: var(--cyan);
+      text-shadow: 0 0 20px var(--cyan);
+      letter-spacing: 4px;
+    }
+    .preloader-bar {
+      width: 220px; height: 3px;
+      background: var(--bg-card2);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .preloader-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--magenta));
+      animation: preload 1.8s ease forwards;
+      border-radius: 2px;
+    }
+    @keyframes preload { from { width: 0; } to { width: 100%; } }
+    .preloader-text {
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+    }
+
+    /* ================================================
+       SCROLLBAR
+    ================================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(var(--cyan), var(--magenta));
+      border-radius: 3px;
+    }
+
+    /* ================================================
+       NAVIGATION
+    ================================================ */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 9000;
+      padding: 16px 24px;
+      background: rgba(11,11,26,0.75);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: space-between;
+      transition: var(--transition);
+    }
+    #navbar.scrolled { padding: 10px 24px; background: rgba(11,11,26,0.95); }
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: var(--cyan);
+      letter-spacing: 3px;
+      text-shadow: 0 0 10px var(--cyan);
+    }
+    .nav-brand span { color: var(--magenta); }
+    .nav-controls { display: flex; align-items: center; gap: 12px; }
+
+    /* Dark/Light toggle */
+    #theme-toggle {
+      width: 44px; height: 24px;
+      background: var(--bg-card2);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    #theme-toggle::after {
+      content: '';
+      position: absolute; top: 3px; left: 3px;
+      width: 18px; height: 18px;
+      background: var(--cyan);
+      border-radius: 50%;
+      transition: var(--transition);
+      box-shadow: 0 0 8px var(--cyan);
+    }
+    [data-theme="light"] #theme-toggle::after { transform: translateX(20px); background: var(--magenta); }
+
+    /* Hamburger */
+    #hamburger {
+      width: 40px; height: 40px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 5px; cursor: pointer;
+      transition: var(--transition);
+    }
+    #hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--cyan);
+      border-radius: 1px;
+      transition: var(--transition);
+    }
+    #hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    #hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    #hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Side drawer nav */
+    #side-nav {
+      position: fixed; top: 0; right: -320px;
+      width: 300px; height: 100vh;
+      background: rgba(11,11,26,0.97);
+      backdrop-filter: blur(24px);
+      border-left: 1px solid var(--glass-border);
+      z-index: 8999;
+      padding: 90px 32px 32px;
+      transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
+      overflow-y: auto;
+    }
+    #side-nav.open { right: 0; }
+    #side-nav a {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 0;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: var(--transition);
+    }
+    #side-nav a:hover { color: var(--cyan); padding-left: 8px; }
+    #side-nav a i { color: var(--cyan); width: 20px; }
+    #nav-overlay {
+      display: none; position: fixed; inset: 0; z-index: 8998;
+      background: rgba(0,0,0,0.5);
+    }
+    #nav-overlay.open { display: block; }
+
+    /* ================================================
+       STICKY CTA
+    ================================================ */
+    #sticky-cta {
+      position: fixed; bottom: 28px; right: 28px;
+      z-index: 8000;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 50px;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      box-shadow: 0 0 30px rgba(0,217,255,0.4);
+      cursor: pointer;
+      transition: var(--transition);
+      animation: pulse-cta 2.5s ease infinite;
+    }
+    #sticky-cta:hover { transform: scale(1.06); box-shadow: 0 0 50px rgba(0,217,255,0.7); }
+    @keyframes pulse-cta {
+      0%, 100% { box-shadow: 0 0 20px rgba(0,217,255,0.3); }
+      50%       { box-shadow: 0 0 50px rgba(0,217,255,0.7); }
+    }
+
+    /* Back to Top */
+    #back-to-top {
+      position: fixed; bottom: 88px; right: 28px;
+      z-index: 8000;
+      width: 44px; height: 44px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; opacity: 0; pointer-events: none;
+      transition: var(--transition);
+      color: var(--cyan);
+    }
+    #back-to-top.visible { opacity: 1; pointer-events: all; }
+    #back-to-top:hover { background: var(--cyan); color: var(--bg-deep); }
+
+    /* ================================================
+       GLASS CARD MIXIN
+    ================================================ */
+    .glass-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(16px) saturate(150%);
+      -webkit-backdrop-filter: blur(16px) saturate(150%);
+      box-shadow: var(--glass-shadow);
+      transition: var(--transition);
+    }
+    .glass-card:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 0 40px rgba(0,217,255,0.15), 0 8px 40px rgba(0,0,0,0.3);
+      transform: translateY(-4px);
+    }
+
+    /* Neon text utilities */
+    .neon-cyan  { color: var(--cyan);    text-shadow: 0 0 12px var(--cyan); }
+    .neon-mag   { color: var(--magenta); text-shadow: 0 0 12px var(--magenta); }
+    .neon-gold  { color: var(--gold);    text-shadow: 0 0 12px var(--gold); }
+    .neon-green { color: var(--green-neon); text-shadow: 0 0 12px var(--green-neon); }
+
+    /* Section title */
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      font-family: var(--font-code);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+    }
+    .section-divider {
+      width: 80px; height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--magenta));
+      border-radius: 2px;
+      margin: 16px 0 48px;
+    }
+
+    /* Scroll-fade animations */
+    .fade-in {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in-left {
+      opacity: 0; transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in-left.visible { opacity: 1; transform: translateX(0); }
+    .fade-in-right {
+      opacity: 0; transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ================================================
+       SECTION 1: HERO
+    ================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 100px 0 60px;
+    }
+    #hero-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(0,217,255,0.07) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 30%, rgba(255,0,170,0.07) 0%, transparent 60%),
+                  radial-gradient(ellipse at 50% 80%, rgba(123,47,255,0.06) 0%, transparent 60%);
+      z-index: 0;
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px;
+      background: rgba(0,217,255,0.08);
+      border: 1px solid rgba(0,217,255,0.3);
+      border-radius: 50px;
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      animation: fadeDown 0.8s ease both;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 8px; height: 8px;
+      background: var(--green-neon);
+      border-radius: 50%;
+      animation: blink 1.5s ease infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: 4px;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--magenta) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeDown 0.9s 0.15s ease both;
+    }
+    .hero-title {
+      font-family: var(--font-code);
+      font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+      color: var(--text-muted);
+      letter-spacing: 3px;
+      margin: 12px 0 20px;
+      animation: fadeDown 1s 0.25s ease both;
+    }
+    .hero-title span { color: var(--cyan); }
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.8;
+      margin-bottom: 36px;
+      animation: fadeDown 1.1s 0.35s ease both;
+    }
+    .hero-btns {
+      display: flex; flex-wrap: wrap; gap: 16px;
+      animation: fadeDown 1.2s 0.45s ease both;
+    }
+    .btn-cyber {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      border: none; cursor: pointer;
+      transition: var(--transition);
+      text-transform: uppercase;
+    }
+    .btn-cyber-primary {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #fff;
+      box-shadow: 0 0 24px rgba(0,217,255,0.3);
+    }
+    .btn-cyber-primary:hover { box-shadow: 0 0 48px rgba(0,217,255,0.6); transform: translateY(-2px); color: #fff; }
+    .btn-cyber-outline {
+      background: transparent;
+      color: var(--cyan);
+      border: 1px solid var(--cyan);
+    }
+    .btn-cyber-outline:hover { background: rgba(0,217,255,0.1); transform: translateY(-2px); }
+    .hero-avatar-wrap {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      animation: fadeDown 1s 0.2s ease both;
+    }
+    .hero-avatar-glow {
+      position: absolute;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(0,217,255,0.2) 0%, rgba(255,0,170,0.1) 50%, transparent 70%);
+      border-radius: 50%;
+      animation: rotateGlow 8s linear infinite;
+    }
+    @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .hero-avatar-ring {
+      position: absolute;
+      width: 290px; height: 290px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,217,255,0.3);
+      border-top-color: var(--cyan);
+      border-right-color: var(--magenta);
+      animation: spin 6s linear infinite;
+    }
+    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .hero-avatar {
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(0,217,255,0.4);
+      position: relative; z-index: 1;
+      box-shadow: 0 0 40px rgba(0,217,255,0.3), 0 0 80px rgba(255,0,170,0.15);
+    }
+    .hero-stats-row {
+      display: flex; gap: 32px; flex-wrap: wrap;
+      margin-top: 40px;
+      animation: fadeDown 1.3s 0.55s ease both;
+    }
+    .hero-stat-item {
+      text-align: center;
+    }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--cyan);
+      display: block;
+    }
+    .hero-stat-lbl {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* Floating tech badges */
+    .tech-float {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 20px;
+      animation: fadeDown 1.4s 0.65s ease both;
+    }
+    .tech-pill {
+      font-family: var(--font-code);
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 50px;
+      background: rgba(0,217,255,0.08);
+      border: 1px solid rgba(0,217,255,0.2);
+      color: var(--cyan);
+      letter-spacing: 1px;
+    }
+
+    /* ================================================
+       SECTION 2: ABOUT / STATS
+    ================================================ */
+    #stats { padding: 80px 0; background: var(--bg-deep); }
+    .stat-card {
+      padding: 32px 20px;
+      text-align: center;
+    }
+    .stat-icon {
+      font-size: 2.4rem;
+      margin-bottom: 12px;
+    }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 700;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ================================================
+       SECTION 3: SKILLS / TECH STACK
+    ================================================ */
+    #skills { padding: 80px 0; }
+    .skill-bar-wrap { margin-bottom: 20px; }
+    .skill-bar-label {
+      display: flex; justify-content: space-between;
+      font-family: var(--font-code);
+      font-size: 0.78rem;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+    .skill-bar-label span:last-child { color: var(--cyan); }
+    .skill-bar-track {
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+      position: relative;
+    }
+    .skill-bar-fill::after {
+      content: '';
+      position: absolute; right: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 10px; height: 10px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan);
+    }
+
+    /* Tech stack icons grid */
+    .tech-icon-card {
+      padding: 20px 12px;
+      text-align: center;
+    }
+    .tech-icon-card img { width: 48px; height: 48px; object-fit: contain; margin-bottom: 10px; }
+    .tech-icon-card p { font-family: var(--font-code); font-size: 0.7rem; color: var(--text-muted); margin: 0; }
+
+    /* ================================================
+       SECTION 4: PROJECTS
+    ================================================ */
+    #projects { padding: 80px 0; }
+    .project-card {
+      overflow: hidden;
+      position: relative;
+    }
+    .project-img-wrap {
+      height: 200px; overflow: hidden;
+      border-radius: 12px 12px 0 0;
+      position: relative;
+    }
+    .project-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .project-card:hover .project-img-wrap img { transform: scale(1.08); }
+    .project-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(11,11,26,0.9) 0%, transparent 50%);
+      display: flex; align-items: flex-end;
+      padding: 16px;
+      opacity: 0; transition: var(--transition);
+    }
+    .project-card:hover .project-overlay { opacity: 1; }
+    .project-body { padding: 20px; }
+    .project-tag {
+      font-family: var(--font-code);
+      font-size: 0.65rem;
+      padding: 3px 10px;
+      border-radius: 50px;
+      background: rgba(0,217,255,0.1);
+      border: 1px solid rgba(0,217,255,0.25);
+      color: var(--cyan);
+      margin-right: 6px;
+      margin-bottom: 6px;
+      display: inline-block;
+    }
+    .project-title { font-family: var(--font-display); font-size: 0.9rem; letter-spacing: 1px; margin: 10px 0 6px; }
+    .project-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+    .project-links { margin-top: 14px; display: flex; gap: 10px; }
+    .project-links a {
+      font-family: var(--font-code);
+      font-size: 0.7rem;
+      color: var(--cyan);
+      border: 1px solid rgba(0,217,255,0.3);
+      padding: 5px 12px;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+    .project-links a:hover { background: rgba(0,217,255,0.1); }
+
+    /* ================================================
+       SECTION 5: GITHUB ACCOUNTS
+    ================================================ */
+    #github-accounts { padding: 80px 0; }
+    .github-card {
+      padding: 16px 18px;
+      display: flex; align-items: center; gap: 14px;
+      text-decoration: none;
+    }
+    .github-card:hover { text-decoration: none; }
+    .github-avatar-mini {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .github-card-info { flex: 1; overflow: hidden; }
+    .github-card-name {
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .github-card-badge {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .github-card i.fa-arrow-up-right-from-square { color: var(--text-muted); font-size: 0.75rem; }
+
+    /* ================================================
+       SECTION 6: LOVABLE PWA LINKS
+    ================================================ */
+    #lovable-links { padding: 80px 0; }
+    .lovable-card {
+      padding: 14px 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .lovable-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--magenta), var(--purple));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .lovable-card a {
+      font-family: var(--font-code);
+      font-size: 0.72rem;
+      color: var(--magenta);
+      transition: var(--transition);
+      word-break: break-all;
+    }
+    .lovable-card a:hover { color: var(--cyan); }
+
+    /* ================================================
+       SECTION 7: EMAIL COLLECTION
+    ================================================ */
+    #emails { padding: 80px 0; }
+    .email-card {
+      padding: 14px 18px;
+      display: flex; align-items: center; gap: 12px;
+      cursor: pointer;
+    }
+    .email-card i { color: var(--cyan); width: 20px; }
+    .email-addr {
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .email-card:hover .email-addr { color: var(--cyan); }
+
+    /* ================================================
+       SECTION 8: CERTIFICATES
+    ================================================ */
+    #certificates { padding: 80px 0; }
+    .cert-card { padding: 24px; }
+    .cert-icon { font-size: 2.2rem; margin-bottom: 14px; }
+    .cert-name {
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+      color: var(--cyan);
+    }
+    .cert-issuer { font-family: var(--font-code); font-size: 0.7rem; color: var(--text-muted); }
+    .cert-year { font-family: var(--font-code); font-size: 0.68rem; color: var(--magenta); margin-top: 8px; }
+    .cert-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      padding: 2px 8px;
+      border-radius: 50px;
+      background: rgba(0,255,136,0.1);
+      border: 1px solid rgba(0,255,136,0.25);
+      color: var(--green-neon);
+      margin-top: 10px;
+    }
+
+    /* ================================================
+       SECTION 9: ORGANIZATIONS
+    ================================================ */
+    #organizations { padding: 80px 0; }
+    .org-card { padding: 24px; text-align: center; }
+    .org-logo {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 16px;
+      border: 2px solid var(--glass-border);
+      display: block;
+    }
+    .org-name { font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 2px; color: var(--cyan); margin-bottom: 6px; }
+    .org-role { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* ================================================
+       SECTION 10: TESTIMONIALS CAROUSEL
+    ================================================ */
+    #testimonials { padding: 80px 0; }
+    #testimonialCarousel .carousel-item { padding: 0 40px; }
+    .testi-card {
+      padding: 40px 36px;
+      position: relative;
+    }
+    .testi-quote {
+      font-size: 4rem;
+      color: var(--cyan);
+      opacity: 0.15;
+      position: absolute;
+      top: 20px; left: 30px;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .testi-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      position: relative; z-index: 1;
+    }
+    .testi-author { display: flex; align-items: center; gap: 16px; }
+    .testi-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--cyan); }
+    .testi-name { font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 1px; color: var(--text-primary); }
+    .testi-role { font-family: var(--font-code); font-size: 0.7rem; color: var(--text-muted); }
+    .testi-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 4px; }
+    .carousel-control-prev, .carousel-control-next {
+      width: 40px; height: 40px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50%;
+      top: 50%; transform: translateY(-50%);
+      opacity: 1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .carousel-control-prev { left: -20px; }
+    .carousel-control-next { right: -20px; }
+
+    /* ================================================
+       SECTION 11: PRICING
+    ================================================ */
+    #pricing { padding: 80px 0; }
+    .pricing-card {
+      padding: 36px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-card.featured {
+      border-color: var(--cyan);
+      box-shadow: 0 0 50px rgba(0,217,255,0.2);
+    }
+    .pricing-popular {
+      position: absolute; top: 20px; right: -24px;
+      transform: rotate(45deg);
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      color: #fff;
+      font-family: var(--font-code);
+      font-size: 0.6rem;
+      padding: 4px 32px;
+      letter-spacing: 2px;
+    }
+    .pricing-plan {
+      font-family: var(--font-code);
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .pricing-price {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+    .pricing-price small {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+    }
+    .pricing-period { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 24px; }
+    .pricing-features { list-style: none; padding: 0; margin-bottom: 28px; text-align: left; }
+    .pricing-features li {
+      padding: 8px 0;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .pricing-features li i { color: var(--green-neon); font-size: 0.8rem; }
+    .pricing-features li.disabled { opacity: 0.35; }
+    .pricing-features li.disabled i { color: var(--text-muted); }
+
+    /* ================================================
+       SECTION 12: FAQ
+    ================================================ */
+    #faq { padding: 80px 0; }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .faq-question {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      padding: 20px 0;
+      cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--text-primary);
+      transition: var(--transition);
+    }
+    .faq-question:hover { color: var(--cyan); }
+    .faq-question i { color: var(--cyan); transition: transform 0.3s ease; }
+    .faq-question.active i { transform: rotate(180deg); }
+    .faq-answer {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .faq-answer.open { max-height: 300px; padding-bottom: 20px; }
+
+    /* ================================================
+       SECTION 13: GALLERY
+    ================================================ */
+    #gallery { padding: 80px 0; }
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      aspect-ratio: 4/3;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.1); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,217,255,0.2);
+      opacity: 0; transition: var(--transition);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gallery-overlay i { font-size: 1.8rem; color: #fff; }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* Lightbox */
+    #lightbox {
+      display: none; position: fixed; inset: 0; z-index: 99000;
+      background: rgba(0,0,0,0.93);
+      align-items: center; justify-content: center;
+    }
+    #lightbox.active { display: flex; }
+    #lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 60px rgba(0,217,255,0.3); }
+    #lightbox-close {
+      position: fixed; top: 24px; right: 24px;
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #fff; font-size: 1.2rem;
+    }
+
+    /* ================================================
+       SECTION 14: CONTACT
+    ================================================ */
+    #contact { padding: 80px 0; }
+    .contact-form-group { margin-bottom: 20px; }
+    .contact-form-group label {
+      font-family: var(--font-code);
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .contact-input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 13px 16px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      transition: var(--transition);
+      outline: none;
+    }
+    .contact-input:focus { border-color: var(--cyan); box-shadow: 0 0 16px rgba(0,217,255,0.15); }
+    .contact-input.error { border-color: var(--magenta); }
+    .contact-input::placeholder { color: rgba(255,255,255,0.2); }
+    .field-error { font-size: 0.7rem; color: var(--magenta); margin-top: 4px; display: none; }
+    .field-error.show { display: block; }
+    .contact-info-card { padding: 28px; margin-bottom: 20px; }
+    .contact-info-item { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .contact-info-icon { width: 40px; height: 40px; background: rgba(0,217,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--cyan); flex-shrink: 0; }
+    .contact-info-val { font-family: var(--font-code); font-size: 0.78rem; color: var(--text-muted); }
+
+    /* Map */
+    .map-wrap {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      height: 280px;
+    }
+    .map-wrap iframe { width: 100%; height: 100%; border: none; }
+
+    /* ================================================
+       SECTION 15: NEWSLETTER
+    ================================================ */
+    #newsletter { padding: 70px 0; }
+    .newsletter-inner {
+      padding: 56px 40px;
+      background: linear-gradient(135deg, rgba(0,217,255,0.06), rgba(255,0,170,0.04));
+      border: 1px solid rgba(0,217,255,0.15);
+      border-radius: 24px;
+      text-align: center;
+    }
+    .newsletter-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+    }
+    .newsletter-sub { color: var(--text-muted); margin-bottom: 32px; font-size: 0.9rem; }
+    .newsletter-form {
+      display: flex; gap: 12px; max-width: 520px; margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .newsletter-input {
+      flex: 1; min-width: 200px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 13px 18px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      outline: none;
+    }
+    .newsletter-input:focus { border-color: var(--cyan); }
+    .newsletter-input::placeholder { color: rgba(255,255,255,0.2); }
+
+    /* ================================================
+       FOOTER
+    ================================================ */
+    #footer {
+      padding: 64px 0 0;
+      background: linear-gradient(180deg, var(--bg-deep) 0%, rgba(26,26,46,0.6) 100%);
+      border-top: 1px solid var(--glass-border);
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      color: var(--cyan);
+      text-shadow: 0 0 12px var(--cyan);
+      margin-bottom: 12px;
+    }
+    .footer-tagline { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6; }
+    .footer-social { display: flex; gap: 12px; flex-wrap: wrap; }
+    .footer-social a {
+      width: 40px; height: 40px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    .footer-social a:hover { background: rgba(0,217,255,0.15); border-color: var(--cyan); color: var(--cyan); }
+    .footer-heading {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      color: var(--cyan);
+      margin-bottom: 20px;
+    }
+    .footer-links { list-style: none; padding: 0; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      transition: var(--transition);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .footer-links a:hover { color: var(--cyan); padding-left: 6px; }
+    .footer-links a::before { content: '›'; color: var(--cyan); }
+    .footer-bottom {
+      margin-top: 48px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: space-between; align-items: center;
+    }
+    .footer-copy { font-family: var(--font-code); font-size: 0.7rem; color: var(--text-muted); }
+    .footer-powered { font-family: var(--font-code); font-size: 0.65rem; color: var(--text-muted); }
+    .footer-powered span { color: var(--cyan); }
+
+    /* ================================================
+       PARALLAX LAYER
+    ================================================ */
+    .parallax-layer {
+      position: absolute;
+      pointer-events: none;
+    }
+    .parallax-orb {
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.12;
+    }
+
+    /* ================================================
+       RESPONSIVE
+    ================================================ */
+    @media (max-width: 768px) {
+      .hero-avatar { width: 180px; height: 180px; }
+      .hero-avatar-glow { width: 240px; height: 240px; }
+      .hero-avatar-ring { width: 210px; height: 210px; }
+      #testimonialCarousel .carousel-item { padding: 0 10px; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-inner { padding: 36px 20px; }
+    }
+    @media (max-width: 480px) {
+      .hero-btns { flex-direction: column; }
+      .btn-cyber { width: 100%; text-align: center; }
+    }
+
+    /* Toast notification */
+    #toast {
+      position: fixed; bottom: 160px; right: 28px;
+      background: var(--bg-card2);
+      border: 1px solid var(--green-neon);
+      border-radius: 12px;
+      padding: 14px 20px;
+      font-family: var(--font-code);
+      font-size: 0.78rem;
+      color: var(--green-neon);
+      z-index: 99999;
+      opacity: 0; transform: translateY(20px);
+      transition: all 0.4s ease;
+      pointer-events: none;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+
+    /* Section background accents */
+    .section-bg-accent {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none; z-index: 0;
+    }
+    .section-content { position: relative; z-index: 1; }
+  </style>
+</head>
+<body>
+
+<!-- ================================================
+     PRELOADER
+================================================ -->
+<div id="preloader">
+  <div class="preloader-logo">MKA.DEV</div>
+  <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+  <div class="preloader-text">INITIALIZING PORTFOLIO V65...</div>
+</div>
+
+<!-- ================================================
+     CUSTOM CURSOR
+================================================ -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- ================================================
+     TOAST
+================================================ -->
+<div id="toast"><i class="fas fa-check-circle me-2"></i>Copied to clipboard!</div>
+
+<!-- ================================================
+     STICKY CTA
+================================================ -->
+<a href="#contact" id="sticky-cta">
+  <i class="fas fa-rocket me-2"></i>HIRE ME
+</a>
+
+<!-- ================================================
+     BACK TO TOP
+================================================ -->
+<div id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fas fa-chevron-up"></i>
+</div>
+
+<!-- ================================================
+     NAVIGATION
+================================================ -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-brand">MKA<span>.</span>V65</div>
+  <div class="nav-controls">
+    <div id="theme-toggle" role="button" aria-label="Toggle dark/light mode" tabindex="0"></div>
+    <div id="hamburger" role="button" aria-label="Open menu" aria-expanded="false" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Side Nav -->
+<div id="nav-overlay" onclick="closeNav()"></div>
+<aside id="side-nav" aria-label="Side navigation">
+  <a href="#hero"          onclick="closeNav()"><i class="fas fa-home"></i>HOME</a>
+  <a href="#stats"         onclick="closeNav()"><i class="fas fa-chart-bar"></i>ABOUT</a>
+  <a href="#skills"        onclick="closeNav()"><i class="fas fa-code"></i>SKILLS</a>
+  <a href="#projects"      onclick="closeNav()"><i class="fas fa-layer-group"></i>PROJECTS</a>
+  <a href="#github-accounts" onclick="closeNav()"><i class="fab fa-github"></i>GITHUB</a>
+  <a href="#lovable-links" onclick="closeNav()"><i class="fas fa-heart"></i>PWA APPS</a>
+  <a href="#certificates"  onclick="closeNav()"><i class="fas fa-certificate"></i>CERTS</a>
+  <a href="#organizations" onclick="closeNav()"><i class="fas fa-building"></i>ORGS</a>
+  <a href="#pricing"       onclick="closeNav()"><i class="fas fa-tag"></i>PRICING</a>
+  <a href="#faq"           onclick="closeNav()"><i class="fas fa-question-circle"></i>FAQ</a>
+  <a href="#gallery"       onclick="closeNav()"><i class="fas fa-images"></i>GALLERY</a>
+  <a href="#contact"       onclick="closeNav()"><i class="fas fa-envelope"></i>CONTACT</a>
+</aside>
+
+<!-- ================================================
+     HERO SECTION
+================================================ -->
+<section id="hero" aria-labelledby="hero-heading">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-gradient"></div>
+
+  <!-- Parallax orbs -->
+  <div class="parallax-layer parallax-orb" data-speed="0.3" style="width:400px;height:400px;background:var(--cyan);top:-100px;left:-80px;"></div>
+  <div class="parallax-layer parallax-orb" data-speed="0.5" style="width:300px;height:300px;background:var(--magenta);top:200px;right:-60px;"></div>
+
+  <div class="container hero-content">
+    <div class="row align-items-center gy-5">
+      <!-- Text -->
+      <div class="col-lg-7">
+        <div class="hero-badge">
+          <i class="fab fa-android me-1"></i>AVAILABLE FOR SENIOR ROLES · MYANMAR
+        </div>
+        <h1 class="hero-name" id="hero-heading">MOE KYAW AUNG</h1>
+        <p class="hero-title">
+          <span>&lt;</span> ANDROID SENIOR DEVELOPER · KOTLIN EXPERT · JETPACK COMPOSE <span>/&gt;</span>
+        </p>
+        <p class="hero-desc">
+          Android Developer with <strong style="color:var(--cyan)">nearly 12 years</strong> of hands-on experience building
+          secure, scalable, and user-friendly mobile applications. Strong in Kotlin, modern Jetpack development,
+          Firebase integration, and REST APIs. Clean architecture enthusiast — delivering features end-to-end.
+        </p>
+        <div class="hero-btns">
+          <a href="#projects"  class="btn-cyber btn-cyber-primary">VIEW PROJECTS</a>
+          <a href="#contact"   class="btn-cyber btn-cyber-outline">CONTACT ME</a>
+          <a href="https://gravatar.com/moekyawaung2026" target="_blank" rel="noopener" class="btn-cyber btn-cyber-outline">
+            <i class="fas fa-user me-2"></i>GRAVATAR
+          </a>
+        </div>
+        <div class="tech-float">
+          <span class="tech-pill">Kotlin</span>
+          <span class="tech-pill">Jetpack Compose</span>
+          <span class="tech-pill">MVVM</span>
+          <span class="tech-pill">Firebase</span>
+          <span class="tech-pill">Room DB</span>
+          <span class="tech-pill">REST APIs</span>
+          <span class="tech-pill">CI/CD</span>
+          <span class="tech-pill">Clean Architecture</span>
+        </div>
+        <div class="hero-stats-row">
+          <div class="hero-stat-item">
+            <span class="hero-stat-num" data-counter="12">0</span>
+            <span class="hero-stat-lbl">Years Exp.</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-num" data-counter="43">0</span>
+            <span class="hero-stat-lbl">GitHub Accounts</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-num" data-counter="38">0</span>
+            <span class="hero-stat-lbl">PWA Apps</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-num" data-counter="21">0</span>
+            <span class="hero-stat-lbl">Emails</span>
+          </div>
+        </div>
+      </div>
+      <!-- Avatar -->
+      <div class="col-lg-5 d-flex justify-content-center">
+        <div class="hero-avatar-wrap">
+          <div class="hero-avatar-glow"></div>
+          <div class="hero-avatar-ring"></div>
+          <img
+            src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778527878/IMG_20260430_053105_uef0yr.png"
+            alt="Moe Kyaw Aung – Senior Android Developer"
+            class="hero-avatar"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     PAGE 2: STATS / ABOUT
+================================================ -->
+<section id="stats" aria-labelledby="stats-heading">
+  <div class="section-bg-accent" style="width:500px;height:500px;background:var(--purple);opacity:0.05;top:-100px;right:0;"></div>
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// ABOUT ME</p>
+      <h2 class="section-title" id="stats-heading">
+        <span class="neon-cyan">BY THE</span> NUMBERS
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+
+    <!-- About text -->
+    <div class="row gy-4 mb-5">
+      <div class="col-lg-6 fade-in-left">
+        <div class="glass-card p-4 h-100">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <img
+              src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778763535/MKA_25_lbx6fb.webp"
+              alt="Moe Kyaw Aung"
+              style="width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid var(--cyan);"
+            />
+            <div>
+              <h3 style="font-family:var(--font-display);font-size:1rem;letter-spacing:2px;color:var(--cyan);">MOE KYAW AUNG</h3>
+              <p style="font-family:var(--font-code);font-size:0.72rem;color:var(--text-muted);margin:0;">မိုးကျော်အောင် · Senior Android Developer · Microsoft</p>
+            </div>
+          </div>
+          <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.8;margin:0;">
+            Based in <strong style="color:var(--cyan)">Tachileik, Myanmar</strong> — I architect and ship
+            production Android applications that handle real-world complexity. Deeply passionate about
+            Clean Architecture, reactive UI with Jetpack Compose, and security-conscious engineering.
+            Comfortable delivering features end-to-end — from UI to networking, local caching, testing,
+            and release-ready CI/CD pipelines.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-6 fade-in-right">
+        <div class="glass-card p-4 h-100">
+          <h4 style="font-family:var(--font-display);font-size:0.8rem;letter-spacing:2px;color:var(--magenta);margin-bottom:20px;">CORE EXPERTISE</h4>
+          <div class="row gy-2">
+            <div class="col-6">
+              <div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(0,217,255,0.05);border-radius:10px;">
+                <i class="fab fa-android neon-cyan"></i>
+                <span style="font-size:0.82rem;color:var(--text-muted);">Android SDK</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,0,170,0.05);border-radius:10px;">
+                <i class="fas fa-fire neon-mag"></i>
+                <span style="font-size:0.82rem;color:var(--text-muted);">Firebase Suite</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(0,217,255,0.05);border-radius:10px;">
+                <i class="fas fa-code neon-cyan"></i>
+                <span style="font-size:0.82rem;color:var(--text-muted);">Kotlin / Coroutines</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,0,170,0.05);border-radius:10px;">
+                <i class="fas fa-database neon-mag"></i>
+                <span style="font-size:0.82rem;color:var(--text-muted);">Room · SQLite</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(0,217,255,0.05);border-radius:10px;">
+                <i class="fas fa-shield-alt neon-cyan"></i>
+                <span style="font-size:0.82rem;color:var(--text-muted);">App Security</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,0,170,0.05);border-radius:10px;">
+                <i class="fas fa-infinity neon-mag"></i>
+                <span style="font-size:0.82rem;color:var(--text-muted);">CI/CD GitHub Actions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animated counters -->
+    <div class="row gy-4">
+      <div class="col-6 col-md-3 fade-in">
+        <div class="glass-card stat-card">
+          <div class="stat-icon neon-cyan"><i class="fas fa-calendar-alt"></i></div>
+          <span class="stat-number neon-cyan" data-counter="12">0</span>+
+          <span class="stat-label">Years of Experience</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 fade-in">
+        <div class="glass-card stat-card">
+          <div class="stat-icon neon-mag"><i class="fas fa-mobile-alt"></i></div>
+          <span class="stat-number neon-mag" data-counter="60">0</span>+
+          <span class="stat-label">Apps Delivered</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 fade-in">
+        <div class="glass-card stat-card">
+          <div class="stat-icon neon-gold"><i class="fas fa-certificate"></i></div>
+          <span class="stat-number neon-gold" data-counter="25">0</span>+
+          <span class="stat-label">Certifications</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 fade-in">
+        <div class="glass-card stat-card">
+          <div class="stat-icon neon-green"><i class="fab fa-github"></i></div>
+          <span class="stat-number neon-green" data-counter="43">0</span>+
+          <span class="stat-label">GitHub Portfolios</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     PAGE 3: SKILLS
+================================================ -->
+<section id="skills" aria-labelledby="skills-heading">
+  <div class="section-bg-accent" style="width:400px;height:400px;background:var(--cyan);opacity:0.04;bottom:0;left:-80px;"></div>
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// TECHNICAL ARSENAL</p>
+      <h2 class="section-title" id="skills-heading">
+        SKILLS <span class="neon-cyan">&amp;</span> <span class="neon-mag">STACK</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-5">
+      <!-- Skill bars -->
+      <div class="col-lg-6 fade-in-left">
+        <div class="glass-card p-4">
+          <h4 style="font-family:var(--font-display);font-size:0.75rem;letter-spacing:3px;color:var(--cyan);margin-bottom:28px;">PROFICIENCY LEVELS</h4>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>Kotlin</span><span>98%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="98"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>Jetpack Compose</span><span>95%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>MVVM / Clean Architecture</span><span>96%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="96"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>Firebase (Auth, Firestore, FCM)</span><span>92%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>REST APIs / Retrofit / OkHttp</span><span>94%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="94"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>Room Database</span><span>90%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>GitHub Actions / CI-CD</span><span>88%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>Cybersecurity / Ethical Hacking</span><span>82%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82" style="background:linear-gradient(90deg,var(--magenta),var(--gold));"></div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Tech icons -->
+      <div class="col-lg-6 fade-in-right">
+        <div class="glass-card p-4">
+          <h4 style="font-family:var(--font-display);font-size:0.75rem;letter-spacing:3px;color:var(--magenta);margin-bottom:28px;">TECHNOLOGY STACK</h4>
+          <div class="row gy-2 gx-2">
+            <!-- Each tech item -->
+            <div class="col-4 col-sm-3">
+              <div class="glass-card tech-icon-card">
+                <i class="fab fa-android fa-2x neon-green mb-2 d-block"></i>
+                <p>Android</p>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="glass-card tech-icon-card">
+                <i class="fas fa-fire fa-2x neon-gold mb-2 d-block"></i>
+                <p>Firebase</p>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="glass-card tech-icon-card">
+                <i class="fab fa-github fa-2x" style="color:var(--text-muted);" ></i>
+                <br/><p>GitHub</p>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="glass-card tech-icon-card">
+                <i class="fas fa-database fa-2x neon-cyan mb-2 d-block"></i>
+                <p>Room DB</p>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="glass-card tech-icon-card">
+                <i class="fas fa-server fa-2x neon-mag mb-2 d-block"></i>
+                <p>REST API</p>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="glass-card tech-icon-card">
+                <i class="fas fa-infinity fa-2x neon-cyan mb-2 d-block"></i>
+                <p>CI/CD</p>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="glass-card tech-icon-card">
+                <i class="fas fa-shield-alt fa-2x neon-gold mb-2 d-block"></i>
+                <p>Security</p>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="glass-card tech-icon-card">
+                <i class="fas fa-brain fa-2x neon-mag mb-2 d-block"></i>
+                <p>AI / ML</p>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="glass-card tech-icon-card">
+                <i class="fab fa-microsoft fa-2x neon-cyan mb-2 d-block"></i>
+                <p>Microsoft</p>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="glass-card tech-icon-card">
+                <i class="fas fa-code-branch fa-2x neon-green mb-2 d-block"></i>
+                <p>Git</p>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="glass-card tech-icon-card">
+                <i class="fas fa-palette fa-2x neon-mag mb-2 d-block"></i>
+                <p>UI Design</p>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="glass-card tech-icon-card">
+                <i class="fas fa-vial fa-2x neon-gold mb-2 d-block"></i>
+                <p>Testing</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     PAGE 3: PROJECTS
+================================================ -->
+<section id="projects" aria-labelledby="projects-heading">
+  <div class="section-bg-accent" style="width:500px;height:500px;background:var(--magenta);opacity:0.04;top:0;right:-80px;"></div>
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// SENIOR LEVEL APPS</p>
+      <h2 class="section-title" id="projects-heading">
+        <span class="neon-mag">FEATURED</span> PROJECTS
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-4">
+
+      <!-- Project 1 -->
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card project-card h-100">
+          <div class="project-img-wrap">
+            <img src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778795856/copilot_image_1778795675037_heh9xk.png" alt="Video Player App" loading="lazy" />
+            <div class="project-overlay"><span class="tech-pill">View on GitHub</span></div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Kotlin</span><span class="project-tag">ExoPlayer</span>
+            <h3 class="project-title">Advanced Video Player</h3>
+            <p class="project-desc">Full-featured video player with playlist management, custom controls, subtitle support, and hardware-accelerated playback.</p>
+            <div class="project-links">
+              <a href="https://github.com/moekyawaung-tech/video-player" target="_blank" rel="noopener"><i class="fab fa-github me-1"></i>GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card project-card h-100">
+          <div class="project-img-wrap">
+            <img src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778795856/copilot_image_1778794626112_ega7kk.png" alt="Social Dashboard" loading="lazy" />
+            <div class="project-overlay"><span class="tech-pill">View on GitHub</span></div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Jetpack Compose</span><span class="project-tag">Firebase</span>
+            <h3 class="project-title">Social Dashboard</h3>
+            <p class="project-desc">Real-time social media analytics dashboard with live feeds, user interactions, push notifications, and dark UI.</p>
+            <div class="project-links">
+              <a href="https://github.com/moekyawaung-tech/social-dashboard" target="_blank" rel="noopener"><i class="fab fa-github me-1"></i>GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card project-card h-100">
+          <div class="project-img-wrap">
+            <img src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778795859/copilot_image_1778794430377_n7xlmz.png" alt="POS System" loading="lazy" />
+            <div class="project-overlay"><span class="tech-pill">View on GitHub</span></div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">MVVM</span><span class="project-tag">Room</span><span class="project-tag">Retrofit</span>
+            <h3 class="project-title">POS Ultimate Pro Max</h3>
+            <p class="project-desc">Enterprise point-of-sale system with inventory management, multi-currency, offline-first architecture, and thermal receipt printing.</p>
+            <div class="project-links">
+              <a href="https://github.com/moekyawaung-tech/POS-Ultimate-Pro-Max" target="_blank" rel="noopener"><i class="fab fa-github me-1"></i>GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card project-card h-100">
+          <div class="project-img-wrap">
+            <img src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778795856/copilot_image_1778795000722_eo96gj.png" alt="Job Portal App" loading="lazy" />
+            <div class="project-overlay"><span class="tech-pill">View on GitHub</span></div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Clean Arch</span><span class="project-tag">Hilt</span>
+            <h3 class="project-title">Job Portal App</h3>
+            <p class="project-desc">Full-stack job marketplace with applicant tracking, employer dashboards, and smart job matching using ML Kit.</p>
+            <div class="project-links">
+              <a href="https://github.com/moekyawaung-tech/Job-Portal-App" target="_blank" rel="noopener"><i class="fab fa-github me-1"></i>GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card project-card h-100">
+          <div class="project-img-wrap">
+            <img src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778795822/preview_dzhqvv.webp" alt="PWA App" loading="lazy" />
+            <div class="project-overlay"><span class="tech-pill">View on GitHub</span></div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">PWA</span><span class="project-tag">Service Worker</span>
+            <h3 class="project-title">PWA Multi-App Collection</h3>
+            <p class="project-desc">Collection of Progressive Web Apps including offline-capable daily planner, weather tracker, and Thailand travel guide.</p>
+            <div class="project-links">
+              <a href="https://github.com/moekyawaung-tech/pwa-app" target="_blank" rel="noopener"><i class="fab fa-github me-1"></i>GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 6 -->
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card project-card h-100">
+          <div class="project-img-wrap">
+            <img src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778795829/copilot_image_1778795000722_okryxj.png" alt="Game Collection" loading="lazy" />
+            <div class="project-overlay"><span class="tech-pill">View on GitHub</span></div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Game Dev</span><span class="project-tag">Canvas API</span>
+            <h3 class="project-title">Game Collection Suite</h3>
+            <p class="project-desc">Snake Game, Casino App, and multi-game collection built with Android Canvas API, high scores, and leaderboard integration.</p>
+            <div class="project-links">
+              <a href="https://github.com/moekyawaung-tech/game-collection" target="_blank" rel="noopener"><i class="fab fa-github me-1"></i>GitHub</a>
+              <a href="https://github.com/moekyawaung-tech/Snake-Game-App" target="_blank" rel="noopener"><i class="fab fa-github me-1"></i>Snake</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /row -->
+  </div>
+</section>
+
+<!-- ================================================
+     PAGE 4: GITHUB ACCOUNTS
+================================================ -->
+<section id="github-accounts" aria-labelledby="gh-heading">
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// PORTFOLIO NETWORK</p>
+      <h2 class="section-title" id="gh-heading">
+        <i class="fab fa-github neon-cyan"></i> GITHUB <span class="neon-mag">ACCOUNTS</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+      <p style="color:var(--text-muted);font-size:0.88rem;max-width:500px;margin:0 auto;">
+        43 active GitHub portfolio accounts across diverse specializations — Android, Web, Cybersecurity, Design, and more.
+      </p>
+    </div>
+    <div class="row gy-3" id="github-grid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     PAGE 4: LOVABLE PWA LINKS
+================================================ -->
+<section id="lovable-links" aria-labelledby="lovable-heading">
+  <div class="section-bg-accent" style="width:450px;height:450px;background:var(--magenta);opacity:0.04;top:50%;left:-100px;"></div>
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// PWA APP COLLECTION</p>
+      <h2 class="section-title" id="lovable-heading">
+        <span class="neon-mag">LOVABLE</span> APPS
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-3" id="lovable-grid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     PAGE 4: EMAIL COLLECTION
+================================================ -->
+<section id="emails" aria-labelledby="email-heading">
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// CONTACT ENDPOINTS</p>
+      <h2 class="section-title" id="email-heading">
+        EMAIL <span class="neon-cyan">COLLECTION</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-3" id="email-grid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     PAGE 5: CERTIFICATES
+================================================ -->
+<section id="certificates" aria-labelledby="cert-heading">
+  <div class="section-bg-accent" style="width:400px;height:400px;background:var(--gold);opacity:0.04;bottom:0;right:0;"></div>
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// CREDENTIALS & ACHIEVEMENTS</p>
+      <h2 class="section-title" id="cert-heading">
+        <span class="neon-gold">CERTIFICATIONS</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-4">
+
+      <div class="col-sm-6 col-lg-4 fade-in">
+        <div class="glass-card cert-card h-100">
+          <div class="cert-icon neon-green"><i class="fab fa-android"></i></div>
+          <div class="cert-name">Android Developer Certification</div>
+          <div class="cert-issuer">Google / Android Developers</div>
+          <div class="cert-year">2022 · 2024</div>
+          <span class="cert-badge">✔ VERIFIED</span>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 fade-in">
+        <div class="glass-card cert-card h-100">
+          <div class="cert-icon neon-cyan"><i class="fas fa-brain"></i></div>
+          <div class="cert-name">Machine Learning Fundamentals</div>
+          <div class="cert-issuer">Google / Coursera</div>
+          <div class="cert-year">2023</div>
+          <span class="cert-badge">✔ VERIFIED</span>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 fade-in">
+        <div class="glass-card cert-card h-100">
+          <div class="cert-icon neon-mag"><i class="fas fa-shield-alt"></i></div>
+          <div class="cert-name">Ethical Hacking & Cybersecurity</div>
+          <div class="cert-issuer">EC-Council / Coursera</div>
+          <div class="cert-year">2023</div>
+          <span class="cert-badge">✔ VERIFIED</span>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 fade-in">
+        <div class="glass-card cert-card h-100">
+          <div class="cert-icon neon-gold"><i class="fab fa-microsoft"></i></div>
+          <div class="cert-name">Microsoft Azure Fundamentals (AZ-900)</div>
+          <div class="cert-issuer">Microsoft</div>
+          <div class="cert-year">2024</div>
+          <span class="cert-badge">✔ VERIFIED</span>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 fade-in">
+        <div class="glass-card cert-card h-100">
+          <div class="cert-icon neon-cyan"><i class="fas fa-fire"></i></div>
+          <div class="cert-name">Firebase App Development</div>
+          <div class="cert-issuer">Google Firebase</div>
+          <div class="cert-year">2022</div>
+          <span class="cert-badge">✔ VERIFIED</span>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 fade-in">
+        <div class="glass-card cert-card h-100">
+          <div class="cert-icon neon-mag"><i class="fas fa-code"></i></div>
+          <div class="cert-name">Kotlin Programming Mastery</div>
+          <div class="cert-issuer">JetBrains Academy</div>
+          <div class="cert-year">2021</div>
+          <span class="cert-badge">✔ VERIFIED</span>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 fade-in">
+        <div class="glass-card cert-card h-100">
+          <div class="cert-icon neon-green"><i class="fab fa-linux"></i></div>
+          <div class="cert-name">Linux System Administration</div>
+          <div class="cert-issuer">Linux Foundation</div>
+          <div class="cert-year">2023</div>
+          <span class="cert-badge">✔ VERIFIED</span>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 fade-in">
+        <div class="glass-card cert-card h-100">
+          <div class="cert-icon neon-gold"><i class="fas fa-infinity"></i></div>
+          <div class="cert-name">DevOps & CI/CD Pipelines</div>
+          <div class="cert-issuer">GitHub / Coursera</div>
+          <div class="cert-year">2024</div>
+          <span class="cert-badge">✔ VERIFIED</span>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 fade-in">
+        <div class="glass-card cert-card h-100">
+          <div class="cert-icon neon-cyan"><i class="fas fa-chart-line"></i></div>
+          <div class="cert-name">AI / Generative AI for Developers</div>
+          <div class="cert-issuer">Google Cloud · DeepLearning.AI</div>
+          <div class="cert-year">2024</div>
+          <span class="cert-badge">✔ VERIFIED</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     PAGE 5: ORGANIZATIONS
+================================================ -->
+<section id="organizations" aria-labelledby="org-heading">
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// PROFESSIONAL AFFILIATIONS</p>
+      <h2 class="section-title" id="org-heading">
+        <span class="neon-cyan">ORGANIZATIONS</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-4">
+
+      <div class="col-6 col-md-4 col-lg-3 fade-in">
+        <div class="glass-card org-card h-100">
+          <div style="width:70px;height:70px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;">
+            <i class="fab fa-microsoft"></i>
+          </div>
+          <div class="org-name">Microsoft</div>
+          <div class="org-role">Senior Android Developer</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3 fade-in">
+        <div class="glass-card org-card h-100">
+          <div style="width:70px;height:70px;background:linear-gradient(135deg,var(--green-neon),var(--cyan));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;">
+            <i class="fab fa-android"></i>
+          </div>
+          <div class="org-name">Android Open Source</div>
+          <div class="org-role">Contributor · Kotlin Dev</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3 fade-in">
+        <div class="glass-card org-card h-100">
+          <div style="width:70px;height:70px;background:linear-gradient(135deg,var(--magenta),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;">
+            <i class="fab fa-github"></i>
+          </div>
+          <div class="org-name">GitHub Community</div>
+          <div class="org-role">43-Account Portfolio Network</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3 fade-in">
+        <div class="glass-card org-card h-100">
+          <div style="width:70px;height:70px;background:linear-gradient(135deg,var(--gold),#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;">
+            <i class="fas fa-fire"></i>
+          </div>
+          <div class="org-name">Firebase Developers</div>
+          <div class="org-role">Certified Firebase Engineer</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3 fade-in">
+        <div class="glass-card org-card h-100">
+          <div style="width:70px;height:70px;background:linear-gradient(135deg,var(--cyan),#00a8cc);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="org-name">Myanmar Cybersec Community</div>
+          <div class="org-role">Ethical Hacking Expert</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3 fade-in">
+        <div class="glass-card org-card h-100">
+          <div style="width:70px;height:70px;background:linear-gradient(135deg,#ff6b35,var(--magenta));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="org-name">Myanmar Workers Thailand</div>
+          <div class="org-role">Community Resource Hub Lead</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3 fade-in">
+        <div class="glass-card org-card h-100">
+          <div style="width:70px;height:70px;background:linear-gradient(135deg,var(--purple),#4a00e0);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="org-name">AI Developer Community</div>
+          <div class="org-role">Claude API · Gemini Integrations</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3 fade-in">
+        <div class="glass-card org-card h-100">
+          <div style="width:70px;height:70px;background:linear-gradient(135deg,#ff416c,#ff4b2b);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="org-name">Myanmar Developers</div>
+          <div class="org-role">Mentor · Senior Engineer</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     PAGE 5: TESTIMONIALS
+================================================ -->
+<section id="testimonials" aria-labelledby="testi-heading">
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// WHAT CLIENTS SAY</p>
+      <h2 class="section-title" id="testi-heading">
+        <span class="neon-cyan">TESTIMONIALS</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+
+        <div class="carousel-item active">
+          <div class="col-lg-8 mx-auto">
+            <div class="glass-card testi-card">
+              <div class="testi-quote">"</div>
+              <div class="testi-stars">★★★★★</div>
+              <p class="testi-text">
+                Moe delivered our enterprise Android application three weeks ahead of schedule.
+                His command of Jetpack Compose and clean architecture resulted in a codebase that
+                our entire team can maintain with confidence. Truly a senior-level professional.
+              </p>
+              <div class="testi-author">
+                <img src="https://picsum.photos/seed/t1/100/100" alt="Client" class="testi-avatar" />
+                <div>
+                  <div class="testi-name">SARAH CHEN</div>
+                  <div class="testi-role">CTO · TechVentures Asia</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="col-lg-8 mx-auto">
+            <div class="glass-card testi-card">
+              <div class="testi-quote">"</div>
+              <div class="testi-stars">★★★★★</div>
+              <p class="testi-text">
+                His Firebase integration work reduced our backend costs by 40% while improving
+                real-time sync reliability dramatically. Moe's attention to security best practices
+                gave us confidence in shipping a fintech app to 200k+ users.
+              </p>
+              <div class="testi-author">
+                <img src="https://picsum.photos/seed/t2/100/100" alt="Client" class="testi-avatar" />
+                <div>
+                  <div class="testi-name">DAVID PARK</div>
+                  <div class="testi-role">Product Lead · FinFlow Myanmar</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="col-lg-8 mx-auto">
+            <div class="glass-card testi-card">
+              <div class="testi-quote">"</div>
+              <div class="testi-stars">★★★★★</div>
+              <p class="testi-text">
+                Working with Moe on our POS system was a masterclass in Android engineering.
+                The offline-first architecture he designed handles thousands of transactions daily
+                without a single data loss incident. Exceptional work.
+              </p>
+              <div class="testi-author">
+                <img src="https://picsum.photos/seed/t3/100/100" alt="Client" class="testi-avatar" />
+                <div>
+                  <div class="testi-name">AUNG THURA</div>
+                  <div class="testi-role">CEO · RetailTech Bangkok</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev" aria-label="Previous">
+        <i class="fas fa-chevron-left" style="color:var(--cyan);font-size:0.9rem;"></i>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next" aria-label="Next">
+        <i class="fas fa-chevron-right" style="color:var(--cyan);font-size:0.9rem;"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     PAGE 6: PRICING
+================================================ -->
+<section id="pricing" aria-labelledby="pricing-heading">
+  <div class="section-bg-accent" style="width:500px;height:500px;background:var(--purple);opacity:0.05;top:0;left:50%;transform:translateX(-50%);"></div>
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// SERVICE PACKAGES</p>
+      <h2 class="section-title" id="pricing-heading">
+        FREELANCE <span class="neon-cyan">PRICING</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-4 justify-content-center">
+
+      <div class="col-md-4 fade-in">
+        <div class="glass-card pricing-card h-100">
+          <div class="pricing-plan">STARTER</div>
+          <div class="pricing-price">$800<small>/mo</small></div>
+          <div class="pricing-period">Simple Android Apps</div>
+          <ul class="pricing-features">
+            <li><i class="fas fa-check"></i>Single Android App</li>
+            <li><i class="fas fa-check"></i>Firebase Integration</li>
+            <li><i class="fas fa-check"></i>Basic UI with Compose</li>
+            <li><i class="fas fa-check"></i>1 Month Support</li>
+            <li><i class="fas fa-check"></i>Play Store Deployment</li>
+            <li class="disabled"><i class="fas fa-times"></i>CI/CD Pipeline</li>
+            <li class="disabled"><i class="fas fa-times"></i>Security Audit</li>
+          </ul>
+          <a href="#contact" class="btn-cyber btn-cyber-outline w-100 d-block text-center">GET STARTED</a>
+        </div>
+      </div>
+
+      <div class="col-md-4 fade-in">
+        <div class="glass-card pricing-card featured h-100">
+          <div class="pricing-popular">POPULAR</div>
+          <div class="pricing-plan">PROFESSIONAL</div>
+          <div class="pricing-price neon-cyan">$2,500<small>/mo</small></div>
+          <div class="pricing-period">Full-Stack Android Projects</div>
+          <ul class="pricing-features">
+            <li><i class="fas fa-check"></i>Full Android Application</li>
+            <li><i class="fas fa-check"></i>Firebase + REST APIs</li>
+            <li><i class="fas fa-check"></i>MVVM / Clean Architecture</li>
+            <li><i class="fas fa-check"></i>CI/CD GitHub Actions</li>
+            <li><i class="fas fa-check"></i>3 Months Support</li>
+            <li><i class="fas fa-check"></i>Security Best Practices</li>
+            <li class="disabled"><i class="fas fa-times"></i>Dedicated Dev Team</li>
+          </ul>
+          <a href="#contact" class="btn-cyber btn-cyber-primary w-100 d-block text-center">HIRE NOW</a>
+        </div>
+      </div>
+
+      <div class="col-md-4 fade-in">
+        <div class="glass-card pricing-card h-100">
+          <div class="pricing-plan">ENTERPRISE</div>
+          <div class="pricing-price neon-mag">Custom</div>
+          <div class="pricing-period">Large-Scale Solutions</div>
+          <ul class="pricing-features">
+            <li><i class="fas fa-check"></i>Multi-Platform Strategy</li>
+            <li><i class="fas fa-check"></i>Microservices Integration</li>
+            <li><i class="fas fa-check"></i>Dedicated Architecture</li>
+            <li><i class="fas fa-check"></i>Team Mentorship</li>
+            <li><i class="fas fa-check"></i>12 Months SLA Support</li>
+            <li><i class="fas fa-check"></i>Security Penetration Testing</li>
+            <li><i class="fas fa-check"></i>AI / ML Integration</li>
+          </ul>
+          <a href="#contact" class="btn-cyber btn-cyber-outline w-100 d-block text-center">CONTACT ME</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     PAGE 6: FAQ
+================================================ -->
+<section id="faq" aria-labelledby="faq-heading">
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// COMMON QUESTIONS</p>
+      <h2 class="section-title" id="faq-heading">
+        <span class="neon-mag">FAQ</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="col-lg-8 mx-auto">
+
+      <div class="faq-item fade-in">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          What Android frameworks and libraries do you specialize in?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          I specialize in the modern Jetpack suite — Compose, ViewModel, Room, Navigation Component,
+          WorkManager, and Hilt for dependency injection. For networking I use Retrofit + OkHttp with
+          Coroutines and Flow for reactive streams. On the testing side: JUnit 4/5, Espresso, and
+          Mockito for comprehensive coverage.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          How long does it take to build a production-ready Android app?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          A standard app with Firebase backend, REST API integration, and polished UI typically
+          takes 6–12 weeks depending on complexity. Enterprise apps with CI/CD pipelines, custom
+          architecture, and advanced features can range from 3–6 months. I provide detailed
+          timelines after requirements analysis.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Do you work with remote teams globally?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Yes, I have extensive experience working with distributed teams across Myanmar,
+          Thailand, and international clients. I'm comfortable with asynchronous communication,
+          GitHub-based code review workflows, and regular video standups to keep projects
+          on track regardless of timezone.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          What security practices do you implement in Android apps?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Security is non-negotiable in my work: I implement Android Keystore for secure credential
+          storage, certificate pinning for network security, ProGuard/R8 obfuscation, input validation,
+          and OWASP Mobile Top 10 compliance checks. For sensitive apps I conduct threat modeling
+          and penetration testing using my ethical hacking background.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Can you help migrate existing apps to Jetpack Compose?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Absolutely. I've led multiple migrations from XML-based layouts to Jetpack Compose,
+          using the recommended interoperability APIs (ComposeView, AndroidView) to enable
+          incremental migration without disrupting existing features. I assess the codebase first
+          and provide a phased migration plan to minimize risk.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     PAGE 7: GALLERY
+================================================ -->
+<section id="gallery" aria-labelledby="gallery-heading">
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// VISUAL SHOWCASE</p>
+      <h2 class="section-title" id="gallery-heading">
+        PROJECT <span class="neon-cyan">GALLERY</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-3 gx-3" id="gallery-grid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+  <div id="lightbox-close" onclick="closeLightbox()" aria-label="Close lightbox"><i class="fas fa-times"></i></div>
+  <img id="lightbox-img" src="" alt="Gallery image large view" />
+</div>
+
+<!-- ================================================
+     PAGE 8: CONTACT
+================================================ -->
+<section id="contact" aria-labelledby="contact-heading">
+  <div class="section-bg-accent" style="width:500px;height:500px;background:var(--cyan);opacity:0.04;top:0;right:-100px;"></div>
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// LET'S BUILD SOMETHING GREAT</p>
+      <h2 class="section-title" id="contact-heading">
+        GET IN <span class="neon-cyan">TOUCH</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-4">
+
+      <!-- Form -->
+      <div class="col-lg-7 fade-in-left">
+        <div class="glass-card p-4">
+          <h4 style="font-family:var(--font-display);font-size:0.78rem;letter-spacing:3px;color:var(--cyan);margin-bottom:24px;">SEND A MESSAGE</h4>
+          <form id="contact-form" novalidate>
+            <div class="row gy-3">
+              <div class="col-sm-6">
+                <div class="contact-form-group">
+                  <label for="contact-name">YOUR NAME</label>
+                  <input type="text" id="contact-name" class="contact-input" placeholder="John Smith" autocomplete="name" />
+                  <span class="field-error" id="name-error">Please enter your name.</span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="contact-form-group">
+                  <label for="contact-email">EMAIL ADDRESS</label>
+                  <input type="email" id="contact-email" class="contact-input" placeholder="you@example.com" autocomplete="email" />
+                  <span class="field-error" id="email-error">Please enter a valid email.</span>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="contact-form-group">
+                  <label for="contact-subject">SUBJECT</label>
+                  <input type="text" id="contact-subject" class="contact-input" placeholder="Android Project Inquiry" />
+                  <span class="field-error" id="subject-error">Please enter a subject.</span>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="contact-form-group">
+                  <label for="contact-msg">YOUR MESSAGE</label>
+                  <textarea id="contact-msg" class="contact-input" rows="5" placeholder="Tell me about your project..."></textarea>
+                  <span class="field-error" id="msg-error">Please enter your message.</span>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn-cyber btn-cyber-primary w-100" style="padding:16px;">
+                  <i class="fas fa-paper-plane me-2"></i>SEND MESSAGE
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="col-lg-5 fade-in-right">
+        <div class="glass-card contact-info-card">
+          <h4 style="font-family:var(--font-display);font-size:0.78rem;letter-spacing:3px;color:var(--magenta);margin-bottom:16px;">CONTACT INFO</h4>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-phone"></i></div>
+            <div>
+              <div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:2px;">PHONE</div>
+              <div class="contact-info-val">+95 9 889 000 889</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:2px;">EMAIL</div>
+              <div class="contact-info-val">moekyawaung@technologist.com</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:2px;">LOCATION</div>
+              <div class="contact-info-val">Tachileik, Myanmar · Bangkok, Thailand</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:2px;">AVAILABILITY</div>
+              <div class="contact-info-val"><span class="neon-green">● OPEN TO WORK</span></div>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div style="margin-top:20px;">
+            <h5 style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:3px;color:var(--cyan);margin-bottom:14px;">SOCIAL MEDIA</h5>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;">
+              <a href="https://www.linkedin.com/in/moe-kyaw-aung-2653093a1" target="_blank" rel="noopener" title="LinkedIn"
+                 style="width:38px;height:38px;background:rgba(0,119,181,0.15);border:1px solid rgba(0,119,181,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#0077b5;transition:var(--transition);"
+                 onmouseover="this.style.background='rgba(0,119,181,0.3)'" onmouseout="this.style.background='rgba(0,119,181,0.15)'">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://github.com/Dev-moe-kyawaung/" target="_blank" rel="noopener" title="GitHub"
+                 style="width:38px;height:38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:var(--transition);"
+                 onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://www.youtube.com/channel/UCuTXUguZb4xjeL2nX8WJGew" target="_blank" rel="noopener" title="YouTube"
+                 style="width:38px;height:38px;background:rgba(255,0,0,0.1);border:1px solid rgba(255,0,0,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#ff0000;transition:var(--transition);"
+                 onmouseover="this.style.background='rgba(255,0,0,0.2)'" onmouseout="this.style.background='rgba(255,0,0,0.1)'">
+                <i class="fab fa-youtube"></i>
+              </a>
+              <a href="https://www.tumblr.com/moekyawaung" target="_blank" rel="noopener" title="Tumblr"
+                 style="width:38px;height:38px;background:rgba(54,70,93,0.2);border:1px solid rgba(54,70,93,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#36465d;transition:var(--transition);"
+                 onmouseover="this.style.background='rgba(54,70,93,0.4)'" onmouseout="this.style.background='rgba(54,70,93,0.2)'">
+                <i class="fab fa-tumblr"></i>
+              </a>
+              <a href="https://bsky.app/profile/moekyawaung96.bsky.social" target="_blank" rel="noopener" title="Bluesky"
+                 style="width:38px;height:38px;background:rgba(0,133,255,0.1);border:1px solid rgba(0,133,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#0085ff;transition:var(--transition);"
+                 onmouseover="this.style.background='rgba(0,133,255,0.2)'" onmouseout="this.style.background='rgba(0,133,255,0.1)'">
+                <i class="fas fa-cloud"></i>
+              </a>
+              <a href="https://vimeo.com/user252414232" target="_blank" rel="noopener" title="Vimeo"
+                 style="width:38px;height:38px;background:rgba(26,183,234,0.1);border:1px solid rgba(26,183,234,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#1ab7ea;transition:var(--transition);"
+                 onmouseover="this.style.background='rgba(26,183,234,0.2)'" onmouseout="this.style.background='rgba(26,183,234,0.1)'">
+                <i class="fab fa-vimeo-v"></i>
+              </a>
+              <a href="https://gravatar.com/moekyawaung2026" target="_blank" rel="noopener" title="Gravatar"
+                 style="width:38px;height:38px;background:rgba(0,217,255,0.08);border:1px solid rgba(0,217,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--cyan);transition:var(--transition);"
+                 onmouseover="this.style.background='rgba(0,217,255,0.2)'" onmouseout="this.style.background='rgba(0,217,255,0.08)'">
+                <i class="fas fa-user-circle"></i>
+              </a>
+              <a href="https://moekyawaung.slack.com/" target="_blank" rel="noopener" title="Slack"
+                 style="width:38px;height:38px;background:rgba(74,21,75,0.1);border:1px solid rgba(74,21,75,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#4a154b;transition:var(--transition);"
+                 onmouseover="this.style.background='rgba(74,21,75,0.2)'" onmouseout="this.style.background='rgba(74,21,75,0.1)'">
+                <i class="fab fa-slack"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-wrap mt-4">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29786.47012345!2d99.8!3d20.45!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30d0b26b3a0a0a0f%3A0x0!2sTachileik%2C+Myanmar!5e0!3m2!1sen!2smm!4v1"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Tachileik, Myanmar Map"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     NEWSLETTER
+================================================ -->
+<section id="newsletter" aria-labelledby="newsletter-heading">
+  <div class="container">
+    <div class="newsletter-inner fade-in">
+      <p class="section-subtitle mb-2">// STAY UPDATED</p>
+      <h2 class="newsletter-title" id="newsletter-heading">
+        JOIN MY <span class="neon-cyan">DEVELOPER</span> <span class="neon-mag">NEWSLETTER</span>
+      </h2>
+      <p class="newsletter-sub">
+        Weekly insights on Android development, Kotlin tips, Firebase tricks, and Myanmar tech community news.
+      </p>
+      <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+        <input type="email" class="newsletter-input" placeholder="your@email.com" required aria-label="Email for newsletter" />
+        <button type="submit" class="btn-cyber btn-cyber-primary">SUBSCRIBE</button>
+      </form>
+      <p style="font-size:0.72rem;color:var(--text-muted);margin-top:16px;">No spam. Unsubscribe anytime. 100% developer content.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     FOOTER
+================================================ -->
+<footer id="footer" aria-label="Site footer">
+  <div class="container">
+    <div class="row gy-5">
+
+      <!-- Brand col -->
+      <div class="col-lg-4">
+        <div class="footer-brand">⭐ MOE KYAW AUNG</div>
+        <p class="footer-tagline">
+          Senior Android Developer · Kotlin Expert · Firebase · Clean Architecture<br/>
+          Based in Tachileik, Myanmar · Available Globally<br/>
+          <span style="font-family:var(--font-code);font-size:0.7rem;color:var(--cyan);">မိုးကျော်အောင် · ၁၂ နှစ်ကျော် အတွေ့အကြုံ</span>
+        </p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/moe-kyaw-aung-2653093a1" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://github.com/Dev-moe-kyawaung/" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.youtube.com/channel/UCuTXUguZb4xjeL2nX8WJGew" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://bsky.app/profile/moekyawaung96.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky"><i class="fas fa-cloud"></i></a>
+          <a href="https://www.tumblr.com/moekyawaung" target="_blank" rel="noopener" aria-label="Tumblr"><i class="fab fa-tumblr"></i></a>
+          <a href="https://vimeo.com/user252414232" target="_blank" rel="noopener" aria-label="Vimeo"><i class="fab fa-vimeo-v"></i></a>
+          <a href="https://gravatar.com/moekyawaung2026" target="_blank" rel="noopener" aria-label="Gravatar"><i class="fas fa-user-circle"></i></a>
+          <a href="https://moekyawaung.slack.com/" target="_blank" rel="noopener" aria-label="Slack"><i class="fab fa-slack"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div class="col-6 col-lg-2">
+        <h4 class="footer-heading">NAVIGATION</h4>
+        <ul class="footer-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#stats">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#certificates">Certificates</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- GitHub portfolios -->
+      <div class="col-6 col-lg-2">
+        <h4 class="footer-heading">PORTFOLIOS</h4>
+        <ul class="footer-links">
+          <li><a href="https://moekyawaung-developer.github.io/" target="_blank" rel="noopener">Developer</a></li>
+          <li><a href="https://moekyawaung-cyber.github.io/" target="_blank" rel="noopener">Cybersec</a></li>
+          <li><a href="https://moekyawaung-microsoft.github.io/" target="_blank" rel="noopener">Microsoft</a></li>
+          <li><a href="https://moekyawaung-designer.github.io/" target="_blank" rel="noopener">Designer</a></li>
+          <li><a href="https://moekyawaung-bangkok.github.io/" target="_blank" rel="noopener">Bangkok</a></li>
+          <li><a href="https://moekyawaung-tech.github.io/" target="_blank" rel="noopener">Tech</a></li>
+        </ul>
+      </div>
+
+      <!-- PWA apps -->
+      <div class="col-6 col-lg-2">
+        <h4 class="footer-heading">PWA APPS</h4>
+        <ul class="footer-links">
+          <li><a href="https://moekyawaung.lovable.app/" target="_blank" rel="noopener">Main App</a></li>
+          <li><a href="https://moe-kyaw-aung.lovable.app" target="_blank" rel="noopener">Portfolio</a></li>
+          <li><a href="https://happy-cv-creator.lovable.app" target="_blank" rel="noopener">CV Creator</a></li>
+          <li><a href="https://the-cv-palette.lovable.app" target="_blank" rel="noopener">CV Palette</a></li>
+          <li><a href="https://moekyaw-url.lovable.app" target="_blank" rel="noopener">URL App</a></li>
+          <li><a href="https://moekyawaungmka.lovable.app" target="_blank" rel="noopener">MKA App</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact footer -->
+      <div class="col-6 col-lg-2">
+        <h4 class="footer-heading">CONTACT</h4>
+        <ul class="footer-links" style="font-size:0.78rem;">
+          <li><a href="tel:+959889000889"><i class="fas fa-phone me-1"></i>+95 9 889 000 889</a></li>
+          <li><a href="mailto:moekyawaung@technologist.com">technologist.com</a></li>
+          <li><a href="mailto:moekyawaung@engineer.com">engineer.com</a></li>
+          <li><a href="mailto:moekyawaung@programmer.net">programmer.net</a></li>
+          <li><a href="mailto:moekyawaung@hackermail.com">hackermail.com</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Moe Kyaw Aung · Portfolio V65 · မိုးကျော်အောင် · All Rights Reserved</div>
+      <div class="footer-powered">BUILT WITH <span>♥</span> · KOTLIN · ANDROID · HTML5 · BOOTSTRAP 5</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ================================================
+     BOOTSTRAP 5 JS
+================================================ -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ================================================
+     MAIN JAVASCRIPT
+================================================ -->
+<script>
+/* ================================================
+   PRELOADER
+================================================ */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const pre = document.getElementById('preloader');
+    pre.classList.add('hidden');
+    setTimeout(() => pre.remove(), 700);
+  }, 2000);
+});
+
+/* ================================================
+   CUSTOM CURSOR
+================================================ */
+const dot  = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  dot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+});
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  ring.style.transform = `translate(${ringX - 18}px, ${ringY - 18}px)`;
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a, button, [role="button"], .glass-card').forEach(el => {
+  el.addEventListener('mouseenter', () => { ring.style.transform += ' scale(1.6)'; dot.style.transform += ' scale(0.5)'; });
+  el.addEventListener('mouseleave', () => { });
+});
+
+/* ================================================
+   HAMBURGER & SIDE NAV
+================================================ */
+const hamburger = document.getElementById('hamburger');
+const sideNav   = document.getElementById('side-nav');
+const overlay   = document.getElementById('nav-overlay');
+hamburger.addEventListener('click', toggleNav);
+hamburger.addEventListener('keydown', e => e.key === 'Enter' && toggleNav());
+function toggleNav() {
+  hamburger.classList.toggle('active');
+  sideNav.classList.toggle('open');
+  overlay.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', sideNav.classList.contains('open'));
+}
+function closeNav() {
+  hamburger.classList.remove('active');
+  sideNav.classList.remove('open');
+  overlay.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+
+/* ================================================
+   NAVBAR SCROLL BEHAVIOR
+================================================ */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+  document.getElementById('back-to-top').classList.toggle('visible', window.scrollY > 400);
+});
+
+/* ================================================
+   DARK / LIGHT TOGGLE
+================================================ */
+const themeToggle = document.getElementById('theme-toggle');
+themeToggle.addEventListener('click', () => {
+  const html = document.documentElement;
+  html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+themeToggle.addEventListener('keydown', e => e.key === 'Enter' && themeToggle.click());
+
+/* ================================================
+   SCROLL-FADE ANIMATIONS (IntersectionObserver)
+================================================ */
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      fadeObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => fadeObserver.observe(el));
+
+/* ================================================
+   ANIMATED COUNTERS
+================================================ */
+function animateCounter(el) {
+  const target = parseInt(el.getAttribute('data-counter'));
+  const duration = 1800;
+  const step = target / (duration / 16);
+  let current = 0;
+  const timer = setInterval(() => {
+    current += step;
+    if (current >= target) { el.textContent = target; clearInterval(timer); }
+    else el.textContent = Math.floor(current);
+  }, 16);
+}
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounter(entry.target);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-counter]').forEach(el => counterObserver.observe(el));
+
+/* ================================================
+   SKILL BARS
+================================================ */
+const barObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        const w = bar.getAttribute('data-width');
+        bar.style.width = w + '%';
+      });
+      barObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.glass-card').forEach(card => {
+  if (card.querySelector('.skill-bar-fill')) barObserver.observe(card);
+});
+
+/* ================================================
+   PARALLAX SCROLLING
+================================================ */
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  document.querySelectorAll('.parallax-layer').forEach(layer => {
+    const speed = parseFloat(layer.getAttribute('data-speed') || 0.2);
+    layer.style.transform = `translateY(${scrollY * speed}px)`;
+  });
+});
+
+/* ================================================
+   HERO CANVAS — Particle Field
+================================================ */
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [], animId;
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); init(); });
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.size = Math.random() * 2 + 0.3;
+      this.speedX = (Math.random() - 0.5) * 0.5;
+      this.speedY = (Math.random() - 0.5) * 0.5;
+      this.hue = Math.random() > 0.5 ? '180,100%,50%' : '316,100%,50%';
+      this.alpha = Math.random() * 0.6 + 0.1;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${this.hue},${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  function init() {
+    particles = [];
+    const count = Math.min(120, Math.floor(W * H / 8000));
+    for (let i = 0; i < count; i++) particles.push(new Particle());
+  }
+  init();
+
+  let mouse = { x: null, y: null };
+  canvas.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+  });
+
+  function connectParticles() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(0,217,255,${0.12 * (1 - dist/120)})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+      // Connect to mouse
+      if (mouse.x) {
+        const dx = particles[i].x - mouse.x;
+        const dy = particles[i].y - mouse.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 150) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(255,0,170,${0.2 * (1 - dist/150)})`;
+          ctx.lineWidth = 0.8;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    connectParticles();
+  }
+  animate();
+})();
+
+/* ================================================
+   GITHUB ACCOUNTS DATA & RENDER
+================================================ */
+const githubAccounts = [
+  { url: 'https://moekyawaung-developer.github.io/', label: 'Developer', icon: '👨‍💻' },
+  { url: 'https://moekyawaung-microsoft.github.io/', label: 'Microsoft', icon: '🪟' },
+  { url: 'https://moekyawaung-cyber.github.io/',    label: 'Cyber Security', icon: '🛡️' },
+  { url: 'https://moekyawaung-bangkok.github.io/',  label: 'Bangkok', icon: '🇹🇭' },
+  { url: 'https://moekyawaung-tech.github.io/',     label: 'Tech', icon: '⚙️' },
+  { url: 'https://moekyawaung-china.github.io/',    label: 'China', icon: '🇨🇳' },
+  { url: 'https://moekyawaung-designer.github.io/', label: 'Designer', icon: '🎨' },
+  { url: 'https://moekyawaung-hack.github.io/',     label: 'Hacker', icon: '💀' },
+  { url: 'https://moekyawaung-graduate.github.io/', label: 'Graduate', icon: '🎓' },
+  { url: 'https://moekyawaung.github.io/',          label: 'Main', icon: '⭐' },
+  { url: 'https://moekyawaung-mk.github.io/',       label: 'MK', icon: '🔥' },
+  { url: 'https://moekyawaung-micro.github.io/',    label: 'Micro', icon: '🔬' },
+  { url: 'https://moekyawaung-dev-mm.github.io/',   label: 'Dev MM', icon: '🇲🇲' },
+  { url: 'https://moekyawaungmka2032-boop.github.io/', label: 'MKA 2032', icon: '🚀' },
+  { url: 'https://moekyaw-developer.github.io/',    label: 'MKA Dev', icon: '💻' },
+  { url: 'https://Moekyawaung-mm.github.io/',       label: 'Myanmar', icon: '🌏' },
+  { url: 'https://moekyawaung-web.github.io/',      label: 'Web Dev', icon: '🌐' },
+  { url: 'https://Moekyawaung-Linux.github.io/',    label: 'Linux', icon: '🐧' },
+  { url: 'https://Moekyawaung-coder.github.io/',    label: 'Coder', icon: '⌨️' },
+  { url: 'https://moekyawaung-creator.github.io/',  label: 'Creator', icon: '✨' },
+  { url: 'https://moekyawaung-webdeveloper.github.io/', label: 'Web Developer', icon: '🖥️' },
+  { url: 'https://Moekyawaung-co.github.io/',       label: 'Company', icon: '🏢' },
+  { url: 'https://moekyawaung-edu.github.io/',      label: 'Education', icon: '📚' },
+  { url: 'https://moekyawaung-senior.github.io/',   label: 'Senior', icon: '👑' },
+  { url: 'https://Moekyawaung-Development.github.io/', label: 'Development', icon: '🔧' },
+  { url: 'https://moekyawaung-google.github.io/',   label: 'Google', icon: '🔍' },
+  { url: 'https://Moe-KyawAung.github.io/',         label: 'Official', icon: '🌟' },
+  { url: 'https://moekyawaungvivov30pro-design.github.io/', label: 'Vivo Design', icon: '📱' },
+  { url: 'https://moekyaw-aung-mm.github.io/',      label: 'MM Profile', icon: '🎯' },
+  { url: 'https://Moekyawaung2026.github.io/',      label: '2026 Edition', icon: '🗓️' },
+  { url: 'https://moekyawaungmka2034-coder.github.io/', label: 'MKA 2034', icon: '🔮' },
+  { url: 'https://Moekyawaung-dev.github.io/',      label: 'Dev', icon: '🛠️' },
+  { url: 'https://MoeKyawAung-code.github.io/',     label: 'Code', icon: '📝' },
+  { url: 'https://moekyawaung-myanmar.github.io/',  label: 'Myanmar Official', icon: '🏮' },
+  { url: 'https://moekyawaung-free.github.io/',     label: 'Free Projects', icon: '🆓' },
+];
+const ghGrid = document.getElementById('github-grid');
+githubAccounts.forEach((acc, i) => {
+  const col = document.createElement('div');
+  col.className = 'col-6 col-md-4 col-lg-3 fade-in';
+  col.innerHTML = `
+    <a href="${acc.url}" target="_blank" rel="noopener" class="glass-card github-card d-block" aria-label="${acc.label} GitHub Portfolio">
+      <div class="github-avatar-mini">${acc.icon}</div>
+      <div class="github-card-info">
+        <div class="github-card-name">${acc.label}</div>
+        <div class="github-card-badge">#${String(i+1).padStart(2,'0')} · github.io</div>
+      </div>
+      <i class="fas fa-arrow-up-right-from-square"></i>
+    </a>`;
+  ghGrid.appendChild(col);
+  fadeObserver.observe(col);
+});
+
+/* ================================================
+   LOVABLE PWA LINKS DATA & RENDER
+================================================ */
+const lovableLinks = [
+  'https://happy-cv-creator.lovable.app',
+  'https://moekyawaung.lovable.app',
+  'https://moekyawaungmybio.lovable.app/',
+  'https://the-cv-palette.lovable.app',
+  'https://moekyaw-url.lovable.app',
+  'https://moekyawaung-dev.lovable.app',
+  'https://moe-kyaw-aung.lovable.app',
+  'https://moekyawaungmka.lovable.app',
+  'https://moekyaw.lovable.app',
+  'https://m-moekyaw.lovable.app',
+  'https://dev-moekyawaung.lovable.app',
+  'https://dev-moekyaw.lovable.app',
+  'https://cv-beacon.lovable.app/',
+  'https://moekyawaungmkamka.lovable.app',
+  'https://pixel-perfect-snap-39.lovable.app',
+  'https://devmoekyaw.lovable.app',
+  'https://profile-persuasion-hub.lovable.app',
+  'https://friendly-haven-io.lovable.app',
+  'https://moekyawaung-github.lovable.app',
+  'https://moekyawgithub.lovable.app',
+  'https://joy-codify-life.lovable.app/',
+  'https://mmoekyaw.lovable.app',
+  'https://color-code-chronicles.lovable.app',
+  'https://moekyawaung-free.lovable.app',
+  'https://app-skill-gallery.lovable.app',
+  'https://spark-coach-create.lovable.app',
+  'https://moekyaw-mk.lovable.app',
+  'https://moekyawaung-myanmar.lovable.app',
+  'https://mmoe.lovable.app',
+  'https://moekyaw-dev.lovable.app',
+];
+const lovGrid = document.getElementById('lovable-grid');
+lovableLinks.forEach((link, i) => {
+  const shortName = link.replace('https://','').replace('.lovable.app','').replace('/','');
+  const col = document.createElement('div');
+  col.className = 'col-6 col-md-4 col-lg-3 fade-in';
+  col.innerHTML = `
+    <div class="glass-card lovable-card">
+      <div class="lovable-icon">💜</div>
+      <div>
+        <a href="${link}" target="_blank" rel="noopener" aria-label="${shortName} Lovable App">${shortName}</a>
+        <div style="font-size:0.65rem;color:var(--text-muted);margin-top:2px;">#${String(i+1).padStart(2,'0')} · lovable.app</div>
+      </div>
+    </div>`;
+  lovGrid.appendChild(col);
+  fadeObserver.observe(col);
+});
+
+/* ================================================
+   EMAIL COLLECTION RENDER
+================================================ */
+const emails = [
+  'moekyawaung@programmer.net',
+  'moekyawaung@collector.org',
+  'moekyawaung@technologist.com',
+  'moekyawaung@techie.com',
+  'moekyawaung@graphic-designer.com',
+  'moekyawaung@cybergal.com',
+  'moekyawaung@webname.com',
+  'moekyawaung@hackermail.com',
+  'moekyawaung@graduate.org',
+  'moekyawaung@engineer.com',
+  'moekyawaung@asia.com',
+  'moekyawaung@contractor.net',
+  'moekyawaung@linuxmail.org',
+  'moekyawaung@usa.com',
+  'moekyawaung@europe.com',
+  'moekyawaung@mail.com',
+  'moekyawaung@iname.com',
+  'moekyawaung@socialogist.com',
+  'moekyawaung@secretary.net',
+  'moekyawaung@publicist.com',
+];
+const emailGrid = document.getElementById('email-grid');
+emails.forEach(addr => {
+  const col = document.createElement('div');
+  col.className = 'col-6 col-md-4 col-lg-3 fade-in';
+  col.innerHTML = `
+    <div class="glass-card email-card" onclick="copyEmail('${addr}')" title="Click to copy" role="button" tabindex="0" aria-label="Copy email ${addr}">
+      <i class="fas fa-envelope"></i>
+      <div class="email-addr">${addr}</div>
+      <i class="fas fa-copy" style="color:var(--text-muted);font-size:0.75rem;margin-left:auto;"></i>
+    </div>`;
+  emailGrid.appendChild(col);
+  fadeObserver.observe(col);
+});
+
+/* ================================================
+   GALLERY IMAGES RENDER
+================================================ */
+const galleryImages = [
+  { src: 'https://res.cloudinary.com/dye5qpwii/image/upload/v1778527878/IMG_20260430_053105_uef0yr.png', alt: 'Moe Kyaw Aung Profile' },
+  { src: 'https://res.cloudinary.com/dye5qpwii/image/upload/v1778763535/MKA_25_lbx6fb.webp', alt: 'MKA Portfolio 25' },
+  { src: 'https://res.cloudinary.com/dye5qpwii/image/upload/v1778763531/MKA_12_iv8kpm.webp', alt: 'MKA Portfolio 12' },
+  { src: 'https://res.cloudinary.com/dye5qpwii/image/upload/v1778747384/image-1_f6zlmk.jpg', alt: 'Project Screenshot 1' },
+  { src: 'https://res.cloudinary.com/dye5qpwii/image/upload/v1778747384/image_1_buwgls.png', alt: 'Project Screenshot 2' },
+  { src: 'https://res.cloudinary.com/dye5qpwii/image/upload/v1778795825/cloud-icon-poster-1_2_opl7sy.png', alt: 'Cloud Icon Poster' },
+  { src: 'https://res.cloudinary.com/dye5qpwii/image/upload/v1778795856/copilot_image_1778795675037_heh9xk.png', alt: 'App UI 1' },
+  { src: 'https://res.cloudinary.com/dye5qpwii/image/upload/v1778795856/copilot_image_1778794626112_ega7kk.png', alt: 'App UI 2' },
+  { src: 'https://res.cloudinary.com/dye5qpwii/image/upload/v1778795859/copilot_image_1778794430377_n7xlmz.png', alt: 'App UI 3' },
+  { src: 'https://res.cloudinary.com/dye5qpwii/image/upload/v1778795856/copilot_image_1778795000722_eo96gj.png', alt: 'App UI 4' },
+  { src: 'https://res.cloudinary.com/dye5qpwii/image/upload/v1778763531/MKA_3_zqrhhr.webp', alt: 'MKA Portfolio 3' },
+  { src: 'https://res.cloudinary.com/dye5qpwii/image/upload/v1778795847/copilot_image_1778795115579_acfm5j.png', alt: 'App UI 5' },
+];
+const gallGrid = document.getElementById('gallery-grid');
+galleryImages.forEach(img => {
+  const col = document.createElement('div');
+  col.className = 'col-6 col-md-4 col-lg-3 fade-in';
+  col.innerHTML = `
+    <div class="gallery-item" onclick="openLightbox('${img.src}','${img.alt}')">
+      <img src="${img.src}" alt="${img.alt}" loading="lazy" />
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+    </div>`;
+  gallGrid.appendChild(col);
+  fadeObserver.observe(col);
+});
+
+/* ================================================
+   LIGHTBOX
+================================================ */
+function openLightbox(src, alt) {
+  document.getElementById('lightbox').classList.add('active');
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-img').alt = alt;
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+/* ================================================
+   FAQ ACCORDION
+================================================ */
+function toggleFaq(el) {
+  const answer = el.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+  if (!isOpen) {
+    answer.classList.add('open');
+    el.classList.add('active');
+  }
+}
+
+/* ================================================
+   CONTACT FORM VALIDATION
+================================================ */
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  let valid = true;
+  const name    = document.getElementById('contact-name');
+  const email   = document.getElementById('contact-email');
+  const subject = document.getElementById('contact-subject');
+  const msg     = document.getElementById('contact-msg');
+  const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function setError(field, errorId, condition) {
+    const err = document.getElementById(errorId);
+    if (condition) {
+      field.classList.add('error'); err.classList.add('show'); valid = false;
+    } else {
+      field.classList.remove('error'); err.classList.remove('show');
+    }
+  }
+  setError(name,    'name-error',    !name.value.trim());
+  setError(email,   'email-error',   !emailRx.test(email.value));
+  setError(subject, 'subject-error', !subject.value.trim());
+  setError(msg,     'msg-error',     !msg.value.trim());
+
+  if (valid) {
+    const btn = this.querySelector('button[type="submit"]');
+    btn.innerHTML = '<i class="fas fa-check me-2"></i>MESSAGE SENT!';
+    btn.style.background = 'linear-gradient(135deg,var(--green-neon),#00aa55)';
+    setTimeout(() => {
+      btn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>SEND MESSAGE';
+      btn.style.background = '';
+      this.reset();
+    }, 3000);
+  }
+});
+
+/* ================================================
+   NEWSLETTER FORM
+================================================ */
+function handleNewsletter(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.innerHTML = '<i class="fas fa-check me-2"></i>SUBSCRIBED!';
+  btn.style.background = 'linear-gradient(135deg,var(--green-neon),#00aa55)';
+  e.target.querySelector('input').value = '';
+  setTimeout(() => {
+    btn.innerHTML = 'SUBSCRIBE';
+    btn.style.background = '';
+  }, 3000);
+}
+
+/* ================================================
+   COPY EMAIL TO CLIPBOARD
+================================================ */
+function copyEmail(addr) {
+  navigator.clipboard.writeText(addr).then(() => {
+    const toast = document.getElementById('toast');
+    toast.querySelector('i').nextSibling.textContent = ' Copied: ' + addr;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  });
+}
+
+/* ================================================
+   SMOOTH SCROLL FOR ANCHOR LINKS
+================================================ */
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+/* ================================================
+   PROGRESS RINGS — animate on scroll
+================================================ */
+function animateRings() {
+  document.querySelectorAll('.ring-circle').forEach(circle => {
+    const pct = parseFloat(circle.getAttribute('data-pct') || 0);
+    const r   = parseFloat(circle.getAttribute('r'));
+    const circ = 2 * Math.PI * r;
+    circle.style.strokeDasharray  = circ;
+    circle.style.strokeDashoffset = circ;
+    setTimeout(() => {
+      circle.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)';
+      circle.style.strokeDashoffset = circ - (pct / 100) * circ;
+    }, 200);
+  });
+}
+const ringObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) { animateRings(); ringObserver.disconnect(); }
+  });
+}, { threshold: 0.3 });
+const ringSection = document.getElementById('progress-rings');
+if (ringSection) ringObserver.observe(ringSection);
+
+/* ================================================
+   TIMELINE — staggered reveal
+================================================ */
+const tlObserver = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.style.opacity = '1', i * 120);
+      tlObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.tl-item').forEach(item => {
+  item.style.opacity = '0';
+  item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  tlObserver.observe(item);
+});
+
+/* ================================================
+   FLOATING SOCIAL BAR — show after scroll
+================================================ */
+window.addEventListener('scroll', () => {
+  const bar = document.getElementById('float-social');
+  if (bar) bar.style.opacity = window.scrollY > 600 ? '1' : '0';
+});
+
+</script>
+
+<!-- ================================================
+     EXTRA STYLES FOR NEW SECTIONS
+================================================ -->
+<style>
+/* ---- EXPERIENCE TIMELINE ---- */
+#experience { padding: 80px 0; }
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--cyan), var(--magenta), var(--purple));
+  border-radius: 2px;
+}
+.tl-item {
+  position: relative;
+  padding: 0 0 40px 32px;
+}
+.tl-item::before {
+  content: '';
+  position: absolute; left: -7px; top: 6px;
+  width: 16px; height: 16px;
+  background: var(--bg-deep);
+  border: 2px solid var(--cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--cyan);
+}
+.tl-year {
+  font-family: var(--font-code);
+  font-size: 0.68rem;
+  color: var(--cyan);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+.tl-role {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.tl-company {
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  color: var(--magenta);
+  margin-bottom: 10px;
+}
+.tl-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ---- PROGRESS RINGS ---- */
+#progress-rings { padding: 80px 0; }
+.ring-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.ring-svg { transform: rotate(-90deg); }
+.ring-track { fill: none; stroke: rgba(255,255,255,0.06); }
+.ring-circle {
+  fill: none;
+  stroke-linecap: round;
+}
+.ring-label {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-align: center;
+}
+.ring-value {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  text-align: center;
+}
+.ring-text-group {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* ---- MYANMAR CULTURAL SECTION ---- */
+#myanmar-culture { padding: 80px 0; overflow: hidden; }
+.bagan-banner {
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(11,11,26,0) 0%, rgba(11,11,26,0.7) 60%, rgba(11,11,26,1) 100%),
+    url('https://res.cloudinary.com/dye5qpwii/image/upload/v1778795853/copilot_image_1778794781671_kytvkc.png') center/cover no-repeat;
+  min-height: 380px;
+  display: flex; align-items: flex-end;
+  padding: 48px;
+  border: 1px solid var(--glass-border);
+  position: relative;
+  overflow: hidden;
+}
+.bagan-text-mm {
+  font-family: 'Exo 2', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  color: var(--gold);
+  text-shadow: 0 0 30px var(--gold), 0 2px 8px rgba(0,0,0,0.8);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+.bagan-text-en {
+  font-family: var(--font-code);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+.culture-card { padding: 28px; text-align: center; }
+.culture-icon { font-size: 2.8rem; margin-bottom: 16px; }
+.culture-title {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  margin-bottom: 8px;
+}
+.culture-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ---- BLOG / ARTICLES ---- */
+#blog { padding: 80px 0; }
+.blog-card { overflow: hidden; }
+.blog-img-wrap { height: 180px; overflow: hidden; border-radius: 12px 12px 0 0; }
+.blog-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.blog-card:hover .blog-img-wrap img { transform: scale(1.08); }
+.blog-body { padding: 20px; }
+.blog-cat {
+  font-family: var(--font-code);
+  font-size: 0.65rem;
+  color: var(--magenta);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.blog-title { font-family: var(--font-display); font-size: 0.82rem; letter-spacing: 1px; margin-bottom: 10px; }
+.blog-excerpt { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
+.blog-meta { font-family: var(--font-code); font-size: 0.68rem; color: var(--text-muted); display: flex; gap: 14px; }
+
+/* ---- FLOATING SOCIAL BAR ---- */
+#float-social {
+  position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 10px;
+  z-index: 7000;
+  opacity: 0; transition: opacity 0.4s ease;
+}
+#float-social a {
+  width: 36px; height: 36px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  transition: var(--transition);
+  backdrop-filter: blur(8px);
+}
+#float-social a:hover { background: rgba(0,217,255,0.15); border-color: var(--cyan); color: var(--cyan); transform: scale(1.15); }
+@media (max-width: 768px) { #float-social { display: none; } }
+
+/* ---- AVAILABILITY BANNER ---- */
+#availability-banner {
+  background: linear-gradient(90deg, rgba(0,255,136,0.06), rgba(0,217,255,0.06), rgba(255,0,170,0.04));
+  border-top: 1px solid rgba(0,255,136,0.2);
+  border-bottom: 1px solid rgba(0,255,136,0.2);
+  padding: 18px 0;
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex; gap: 60px;
+  animation: marquee 25s linear infinite;
+  white-space: nowrap;
+}
+.marquee-track span {
+  font-family: var(--font-code);
+  font-size: 0.78rem;
+  color: var(--green-neon);
+  letter-spacing: 3px;
+  display: flex; align-items: center; gap: 12px;
+}
+.marquee-track span::before { content: '◆'; color: var(--cyan); font-size: 0.5rem; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ---- TECH SHOWCASE GRID ---- */
+#tech-showcase { padding: 80px 0; }
+.tech-showcase-item {
+  padding: 28px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.tech-showcase-item::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(0,217,255,0.03), transparent);
+  opacity: 0; transition: var(--transition);
+}
+.tech-showcase-item:hover::before { opacity: 1; }
+.tech-showcase-num {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, var(--cyan), var(--magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.tech-showcase-name {
+  font-family: var(--font-code);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+
+/* ---- SERVICES SECTION ---- */
+#services { padding: 80px 0; }
+.service-card { padding: 32px 28px; }
+.service-num {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--cyan);
+  opacity: 0.5;
+  margin-bottom: 16px;
+}
+.service-icon { font-size: 2.4rem; margin-bottom: 14px; }
+.service-title { font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 2px; margin-bottom: 10px; }
+.service-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.7; }
+.service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+
+/* ---- HIRE PROCESS ---- */
+#hire-process { padding: 80px 0; }
+.process-step { text-align: center; padding: 20px; position: relative; }
+.process-step::after {
+  content: '→';
+  position: absolute; right: -14px; top: 32px;
+  font-size: 1.4rem;
+  color: var(--cyan);
+  opacity: 0.3;
+}
+.process-step:last-child::after { display: none; }
+.process-num {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0,217,255,0.12), rgba(123,47,255,0.12));
+  border: 1px solid var(--cyan);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--cyan);
+  margin: 0 auto 16px;
+  box-shadow: 0 0 20px rgba(0,217,255,0.2);
+}
+.process-title { font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 2px; margin-bottom: 8px; }
+.process-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ---- SOCIAL PROOF LOGOS ---- */
+#social-proof { padding: 50px 0; }
+.proof-logo {
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px 20px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  transition: var(--transition);
+  height: 70px;
+}
+.proof-logo:hover { color: var(--cyan); }
+.proof-logo i { font-size: 1.6rem; margin-right: 8px; }
+</style>
+
+<!-- ================================================
+     FLOATING SOCIAL BAR
+================================================ -->
+<div id="float-social" aria-label="Social media quick links">
+  <a href="https://www.linkedin.com/in/moe-kyaw-aung-2653093a1" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+  <a href="https://github.com/Dev-moe-kyawaung/" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+  <a href="https://www.youtube.com/channel/UCuTXUguZb4xjeL2nX8WJGew" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+  <a href="https://bsky.app/profile/moekyawaung96.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky"><i class="fas fa-cloud"></i></a>
+  <a href="https://gravatar.com/moekyawaung2026" target="_blank" rel="noopener" aria-label="Gravatar"><i class="fas fa-user-circle"></i></a>
+  <a href="mailto:moekyawaung@technologist.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+</div>
+
+<!-- ================================================
+     AVAILABILITY TICKER BANNER
+================================================ -->
+<div id="availability-banner" aria-label="Availability status">
+  <div class="marquee-track">
+    <span>AVAILABLE FOR HIRE</span>
+    <span>SENIOR ANDROID DEVELOPER</span>
+    <span>KOTLIN EXPERT</span>
+    <span>JETPACK COMPOSE</span>
+    <span>FIREBASE</span>
+    <span>CLEAN ARCHITECTURE</span>
+    <span>OPEN TO REMOTE WORK</span>
+    <span>မိုးကျော်အောင်</span>
+    <span>TACHILEIK · MYANMAR</span>
+    <span>12 YEARS EXPERIENCE</span>
+    <span>AVAILABLE FOR HIRE</span>
+    <span>SENIOR ANDROID DEVELOPER</span>
+    <span>KOTLIN EXPERT</span>
+    <span>JETPACK COMPOSE</span>
+    <span>FIREBASE</span>
+    <span>CLEAN ARCHITECTURE</span>
+    <span>OPEN TO REMOTE WORK</span>
+    <span>မိုးကျော်အောင်</span>
+    <span>TACHILEIK · MYANMAR</span>
+    <span>12 YEARS EXPERIENCE</span>
+  </div>
+</div>
+
+<!-- ================================================
+     SECTION: EXPERIENCE TIMELINE
+================================================ -->
+<section id="experience" aria-labelledby="exp-heading">
+  <div class="section-bg-accent" style="width:400px;height:400px;background:var(--cyan);opacity:0.04;top:0;right:-80px;"></div>
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// CAREER JOURNEY</p>
+      <h2 class="section-title" id="exp-heading">
+        WORK <span class="neon-cyan">EXPERIENCE</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-4">
+      <div class="col-lg-6 fade-in-left">
+        <div class="glass-card p-4">
+          <h4 style="font-family:var(--font-display);font-size:0.72rem;letter-spacing:3px;color:var(--cyan);margin-bottom:28px;">PROFESSIONAL TIMELINE</h4>
+          <div class="timeline">
+
+            <div class="tl-item">
+              <div class="tl-year">2022 — PRESENT</div>
+              <div class="tl-role">SENIOR ANDROID DEVELOPER</div>
+              <div class="tl-company"><i class="fab fa-microsoft me-2"></i>Microsoft · Remote / Myanmar</div>
+              <div class="tl-desc">Leading Android feature development with Kotlin and Jetpack Compose. Architecting scalable MVVM solutions, driving CI/CD pipeline adoption via GitHub Actions, and mentoring junior developers on clean code principles.</div>
+            </div>
+
+            <div class="tl-item">
+              <div class="tl-year">2020 — 2022</div>
+              <div class="tl-role">ANDROID DEVELOPER (MID-SENIOR)</div>
+              <div class="tl-company"><i class="fas fa-building me-2"></i>FinTech Startup · Bangkok, Thailand</div>
+              <div class="tl-desc">Built secure mobile banking features including biometric authentication, encrypted local storage, and real-time transaction syncing with Firebase. Reduced crash rate by 78% through rigorous testing.</div>
+            </div>
+
+            <div class="tl-item">
+              <div class="tl-year">2018 — 2020</div>
+              <div class="tl-role">ANDROID DEVELOPER</div>
+              <div class="tl-company"><i class="fas fa-mobile-alt me-2"></i>Mobile Agency · Myanmar</div>
+              <div class="tl-desc">Developed 15+ client apps spanning e-commerce, social, and utility categories. Introduced Retrofit + MVVM architecture that became team standard, cutting development time by 35%.</div>
+            </div>
+
+            <div class="tl-item">
+              <div class="tl-year">2014 — 2018</div>
+              <div class="tl-role">JUNIOR → MID ANDROID DEVELOPER</div>
+              <div class="tl-company"><i class="fas fa-code me-2"></i>Freelance / Self-Employed</div>
+              <div class="tl-desc">Built foundational expertise delivering freelance Android projects across Myanmar and Southeast Asia. Mastered Java-to-Kotlin migration, REST API integration, and Play Store deployment workflows.</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Education / Right col -->
+      <div class="col-lg-6 fade-in-right">
+        <div class="glass-card p-4 mb-4">
+          <h4 style="font-family:var(--font-display);font-size:0.72rem;letter-spacing:3px;color:var(--magenta);margin-bottom:28px;">EDUCATION</h4>
+          <div class="timeline">
+            <div class="tl-item" style="--tl-color:var(--magenta);">
+              <div class="tl-year" style="color:var(--magenta);">2010 — 2014</div>
+              <div class="tl-role">B.Sc COMPUTER SCIENCE</div>
+              <div class="tl-company" style="color:var(--cyan);">University of Computer Studies · Myanmar</div>
+              <div class="tl-desc">Specialized in Software Engineering and Mobile Application Development. Graduated with distinction. Led the university Android Development Club.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year" style="color:var(--magenta);">2023 — 2024</div>
+              <div class="tl-role">CYBERSECURITY SPECIALIZATION</div>
+              <div class="tl-company" style="color:var(--cyan);">EC-Council · Online · Certified</div>
+              <div class="tl-desc">Advanced ethical hacking, penetration testing, and mobile application security audit techniques. CEH-level competency in Android security.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Language skills -->
+        <div class="glass-card p-4">
+          <h4 style="font-family:var(--font-display);font-size:0.72rem;letter-spacing:3px;color:var(--gold);margin-bottom:20px;">LANGUAGES</h4>
+          <div class="d-flex flex-column gap-3">
+            <div>
+              <div class="skill-bar-label"><span>Myanmar (Burmese) 🇲🇲</span><span>Native</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="100" style="background:linear-gradient(90deg,var(--gold),#ff8c00);"></div></div>
+            </div>
+            <div>
+              <div class="skill-bar-label"><span>English 🇬🇧</span><span>Professional</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div>
+            </div>
+            <div>
+              <div class="skill-bar-label"><span>Thai 🇹🇭</span><span>Conversational</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="60" style="background:linear-gradient(90deg,var(--magenta),var(--purple));"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION: PROGRESS RINGS
+================================================ -->
+<section id="progress-rings" aria-labelledby="rings-heading">
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// EXPERTISE DEPTH</p>
+      <h2 class="section-title" id="rings-heading">
+        CORE <span class="neon-mag">COMPETENCIES</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-4 justify-content-center">
+
+      <div class="col-6 col-md-3 fade-in">
+        <div class="glass-card p-4 text-center">
+          <div class="ring-wrap" style="position:relative;display:inline-block;">
+            <svg width="100" height="100" class="ring-svg">
+              <circle class="ring-track" cx="50" cy="50" r="42" stroke-width="6"/>
+              <circle class="ring-circle" cx="50" cy="50" r="42" stroke-width="6"
+                      stroke="url(#grad1)" data-pct="98"/>
+              <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:var(--cyan)"/>
+                  <stop offset="100%" style="stop-color:var(--purple)"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="ring-text-group">
+              <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--cyan);">98%</div>
+            </div>
+          </div>
+          <div class="ring-label mt-2">KOTLIN</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 fade-in">
+        <div class="glass-card p-4 text-center">
+          <div class="ring-wrap" style="position:relative;display:inline-block;">
+            <svg width="100" height="100" class="ring-svg">
+              <circle class="ring-track" cx="50" cy="50" r="42" stroke-width="6"/>
+              <circle class="ring-circle" cx="50" cy="50" r="42" stroke-width="6"
+                      stroke="url(#grad2)" data-pct="95"/>
+              <defs>
+                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:var(--magenta)"/>
+                  <stop offset="100%" style="stop-color:var(--purple)"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="ring-text-group">
+              <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--magenta);">95%</div>
+            </div>
+          </div>
+          <div class="ring-label mt-2">COMPOSE</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 fade-in">
+        <div class="glass-card p-4 text-center">
+          <div class="ring-wrap" style="position:relative;display:inline-block;">
+            <svg width="100" height="100" class="ring-svg">
+              <circle class="ring-track" cx="50" cy="50" r="42" stroke-width="6"/>
+              <circle class="ring-circle" cx="50" cy="50" r="42" stroke-width="6"
+                      stroke="url(#grad3)" data-pct="92"/>
+              <defs>
+                <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:var(--gold)"/>
+                  <stop offset="100%" style="stop-color:#ff8c00"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="ring-text-group">
+              <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--gold);">92%</div>
+            </div>
+          </div>
+          <div class="ring-label mt-2">FIREBASE</div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 fade-in">
+        <div class="glass-card p-4 text-center">
+          <div class="ring-wrap" style="position:relative;display:inline-block;">
+            <svg width="100" height="100" class="ring-svg">
+              <circle class="ring-track" cx="50" cy="50" r="42" stroke-width="6"/>
+              <circle class="ring-circle" cx="50" cy="50" r="42" stroke-width="6"
+                      stroke="url(#grad4)" data-pct="88"/>
+              <defs>
+                <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:var(--green-neon)"/>
+                  <stop offset="100%" style="stop-color:var(--cyan)"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="ring-text-group">
+              <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--green-neon);">88%</div>
+            </div>
+          </div>
+          <div class="ring-label mt-2">CI/CD</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION: SERVICES
+================================================ -->
+<section id="services" aria-labelledby="svc-heading">
+  <div class="section-bg-accent" style="width:450px;height:450px;background:var(--purple);opacity:0.05;bottom:0;left:-60px;"></div>
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// WHAT I OFFER</p>
+      <h2 class="section-title" id="svc-heading">
+        MY <span class="neon-cyan">SERVICES</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-4">
+
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card service-card h-100">
+          <div class="service-num">01</div>
+          <div class="service-icon neon-green"><i class="fab fa-android"></i></div>
+          <div class="service-title">ANDROID APP DEVELOPMENT</div>
+          <div class="service-desc">End-to-end native Android application development using Kotlin, Jetpack Compose, and modern architecture patterns. From idea to Play Store release.</div>
+          <div class="service-tags">
+            <span class="tech-pill">Kotlin</span>
+            <span class="tech-pill">Compose</span>
+            <span class="tech-pill">MVVM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card service-card h-100">
+          <div class="service-num">02</div>
+          <div class="service-icon neon-cyan"><i class="fas fa-fire"></i></div>
+          <div class="service-title">FIREBASE INTEGRATION</div>
+          <div class="service-desc">Full Firebase suite setup: Authentication, Firestore, Realtime DB, Cloud Storage, FCM push notifications, Remote Config, and Analytics.</div>
+          <div class="service-tags">
+            <span class="tech-pill">Firestore</span>
+            <span class="tech-pill">FCM</span>
+            <span class="tech-pill">Auth</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card service-card h-100">
+          <div class="service-num">03</div>
+          <div class="service-icon neon-mag"><i class="fas fa-shield-alt"></i></div>
+          <div class="service-title">APP SECURITY AUDIT</div>
+          <div class="service-desc">Comprehensive Android security review — OWASP Mobile Top 10 analysis, reverse engineering protection, network security, and threat modelling.</div>
+          <div class="service-tags">
+            <span class="tech-pill">OWASP</span>
+            <span class="tech-pill">Pentest</span>
+            <span class="tech-pill">Keystore</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card service-card h-100">
+          <div class="service-num">04</div>
+          <div class="service-icon neon-gold"><i class="fas fa-infinity"></i></div>
+          <div class="service-title">CI/CD PIPELINE SETUP</div>
+          <div class="service-desc">GitHub Actions workflows for automated build, test, lint, dependency scanning, and Play Store deployment. Signed release APKs and AABs on every merge.</div>
+          <div class="service-tags">
+            <span class="tech-pill">GitHub Actions</span>
+            <span class="tech-pill">Fastlane</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card service-card h-100">
+          <div class="service-num">05</div>
+          <div class="service-icon neon-cyan"><i class="fas fa-code-branch"></i></div>
+          <div class="service-title">CODE REVIEW &amp; MENTORSHIP</div>
+          <div class="service-desc">Hands-on code reviews, architecture guidance, and team mentorship focused on Kotlin idioms, Compose best practices, and Clean Architecture principles.</div>
+          <div class="service-tags">
+            <span class="tech-pill">Clean Code</span>
+            <span class="tech-pill">Review</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card service-card h-100">
+          <div class="service-num">06</div>
+          <div class="service-icon neon-mag"><i class="fas fa-robot"></i></div>
+          <div class="service-title">AI / ML INTEGRATION</div>
+          <div class="service-desc">Integrate on-device ML Kit, Claude API, Gemini API, and TensorFlow Lite models into production Android apps for intelligent features and natural language processing.</div>
+          <div class="service-tags">
+            <span class="tech-pill">ML Kit</span>
+            <span class="tech-pill">Claude API</span>
+            <span class="tech-pill">TFLite</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION: HIRE PROCESS
+================================================ -->
+<section id="hire-process" aria-labelledby="process-heading">
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// HOW WE WORK</p>
+      <h2 class="section-title" id="process-heading">
+        HIRING <span class="neon-cyan">PROCESS</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-4">
+      <div class="col-6 col-md-3 fade-in">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <div class="process-title">DISCOVERY CALL</div>
+          <div class="process-desc">30-minute free consultation to understand your project requirements, timeline, and technical needs.</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 fade-in">
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <div class="process-title">PROPOSAL</div>
+          <div class="process-desc">Detailed scope of work, tech stack recommendation, milestone plan, and transparent pricing within 48 hours.</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 fade-in">
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <div class="process-title">DEVELOPMENT</div>
+          <div class="process-desc">Agile sprints with weekly demos, GitHub progress, and daily async updates via Slack or email.</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 fade-in">
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <div class="process-title">DELIVERY</div>
+          <div class="process-desc">Handover includes full source code, CI/CD setup, documentation, and post-launch support period.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION: MYANMAR CULTURAL IDENTITY
+================================================ -->
+<section id="myanmar-culture" aria-labelledby="mm-heading">
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// MY ROOTS</p>
+      <h2 class="section-title" id="mm-heading">
+        <span class="neon-gold">မြန်မာ</span> IDENTITY
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-4 align-items-center">
+      <div class="col-lg-6 fade-in-left">
+        <div class="bagan-banner">
+          <div>
+            <div class="bagan-text-mm">မိုးကျော်အောင် ✦</div>
+            <div class="bagan-text-mm" style="font-size:clamp(1rem,2.5vw,1.5rem);color:var(--cyan);">မြန်မာ Android Developer</div>
+            <div class="bagan-text-en">TACHILEIK, SHAN STATE · MYANMAR</div>
+            <div class="bagan-text-en" style="margin-top:8px;color:var(--gold);">BUILDING THE DIGITAL FUTURE OF MYANMAR</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 fade-in-right">
+        <div class="row gy-3">
+          <div class="col-6">
+            <div class="glass-card culture-card">
+              <div class="culture-icon">🏮</div>
+              <div class="culture-title">မြန်မာ ROOTS</div>
+              <div class="culture-desc">Born and raised in Myanmar, deeply connected to Burmese culture while delivering world-class engineering.</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="glass-card culture-card">
+              <div class="culture-icon">🌏</div>
+              <div class="culture-title">SOUTHEAST ASIA</div>
+              <div class="culture-desc">Active presence in Myanmar and Thailand tech communities. Supporting Myanmar workers in Bangkok.</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="glass-card culture-card">
+              <div class="culture-icon">🎯</div>
+              <div class="culture-title">BILINGUAL BUILD</div>
+              <div class="culture-desc">Apps built with Myanmar language (Unicode Zawgyi/Unicode) support and bilingual UI systems.</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="glass-card culture-card">
+              <div class="culture-icon">🤝</div>
+              <div class="culture-title">COMMUNITY LEAD</div>
+              <div class="culture-desc">Running the thailand-resources-myanmar-workers hub — helping compatriots access legal and job resources.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION: TECH SHOWCASE NUMBERS
+================================================ -->
+<section id="tech-showcase" aria-labelledby="showcase-heading">
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// AT A GLANCE</p>
+      <h2 class="section-title" id="showcase-heading">
+        IMPACT <span class="neon-cyan">METRICS</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-4 text-center">
+      <div class="col-6 col-md-3 fade-in">
+        <div class="glass-card tech-showcase-item">
+          <div class="tech-showcase-num" data-counter="500">0</div>
+          <div class="tech-showcase-name">K+ APP DOWNLOADS</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 fade-in">
+        <div class="glass-card tech-showcase-item">
+          <div class="tech-showcase-num" data-counter="99" style="background:linear-gradient(135deg,var(--green-neon),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0</div>
+          <div class="tech-showcase-name">% CRASH-FREE RATE</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 fade-in">
+        <div class="glass-card tech-showcase-item">
+          <div class="tech-showcase-num" data-counter="4" style="background:linear-gradient(135deg,var(--gold),#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0</div>
+          <div class="tech-showcase-name">.9★ AVG RATING</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 fade-in">
+        <div class="glass-card tech-showcase-item">
+          <div class="tech-showcase-num" data-counter="40" style="background:linear-gradient(135deg,var(--magenta),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0</div>
+          <div class="tech-showcase-name">% FASTER DELIVERY</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION: SOCIAL PROOF LOGOS
+================================================ -->
+<section id="social-proof" aria-label="Tools and platforms used">
+  <div class="container section-content">
+    <div class="text-center mb-4 fade-in">
+      <p class="section-subtitle">// TRUSTED TOOLS &amp; PLATFORMS</p>
+    </div>
+    <div class="row gy-2 gx-2 justify-content-center">
+      <div class="col-4 col-md-2">
+        <div class="glass-card proof-logo fade-in">
+          <i class="fab fa-android neon-green"></i>Android
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="glass-card proof-logo fade-in">
+          <i class="fab fa-github"></i>GitHub
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="glass-card proof-logo fade-in">
+          <i class="fab fa-microsoft neon-cyan"></i>Azure
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="glass-card proof-logo fade-in">
+          <i class="fas fa-fire neon-gold"></i>Firebase
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="glass-card proof-logo fade-in">
+          <i class="fab fa-google neon-mag"></i>Google
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="glass-card proof-logo fade-in">
+          <i class="fab fa-linux neon-green"></i>Linux
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION: BLOG / ARTICLES
+================================================ -->
+<section id="blog" aria-labelledby="blog-heading">
+  <div class="section-bg-accent" style="width:400px;height:400px;background:var(--cyan);opacity:0.04;top:0;right:-80px;"></div>
+  <div class="container section-content">
+    <div class="text-center mb-5 fade-in">
+      <p class="section-subtitle">// KNOWLEDGE SHARING</p>
+      <h2 class="section-title" id="blog-heading">
+        TECH <span class="neon-mag">ARTICLES</span>
+      </h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+    <div class="row gy-4">
+
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card blog-card h-100">
+          <div class="blog-img-wrap">
+            <img src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778795856/copilot_image_1778795675037_heh9xk.png" alt="Kotlin Coroutines article" loading="lazy" />
+          </div>
+          <div class="blog-body">
+            <div class="blog-cat">Kotlin · Performance</div>
+            <div class="blog-title">Mastering Kotlin Coroutines in Production Android Apps</div>
+            <div class="blog-excerpt">Practical patterns for structured concurrency, Flow operators, and avoiding common pitfalls that cause memory leaks in long-running operations.</div>
+            <div class="blog-meta">
+              <span><i class="fas fa-calendar me-1"></i>May 2026</span>
+              <span><i class="fas fa-clock me-1"></i>8 min read</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card blog-card h-100">
+          <div class="blog-img-wrap">
+            <img src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778795856/copilot_image_1778794626112_ega7kk.png" alt="Jetpack Compose article" loading="lazy" />
+          </div>
+          <div class="blog-body">
+            <div class="blog-cat">Jetpack Compose · UI</div>
+            <div class="blog-title">Building Complex Animations in Jetpack Compose Without Pain</div>
+            <div class="blog-excerpt">A deep dive into AnimatedContent, shared element transitions, and physics-based animations that delight users without killing performance.</div>
+            <div class="blog-meta">
+              <span><i class="fas fa-calendar me-1"></i>Apr 2026</span>
+              <span><i class="fas fa-clock me-1"></i>12 min read</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-in">
+        <div class="glass-card blog-card h-100">
+          <div class="blog-img-wrap">
+            <img src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778795859/copilot_image_1778794430377_n7xlmz.png" alt="Firebase Security article" loading="lazy" />
+          </div>
+          <div class="blog-body">
+            <div class="blog-cat">Firebase · Security</div>
+            <div class="blog-title">Hardening Firebase Apps Against Real-World Attacks</div>
+            <div class="blog-excerpt">Security rules, API key protection strategies, certificate pinning, and how to pass a security audit for a Firebase-backed fintech Android app.</div>
+            <div class="blog-meta">
+              <span><i class="fas fa-calendar me-1"></i>Mar 2026</span>
+              <span><i class="fas fa-clock me-1"></i>10 min read</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
