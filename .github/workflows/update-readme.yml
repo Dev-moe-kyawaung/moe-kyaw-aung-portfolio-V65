@@ -1,0 +1,56 @@
+# ═══════════════════════════════════════════════════════════════
+# GitHub Actions Workflow: Auto Update Profile README
+# Author: Moe Kyaw Aung (မိုးကျော်အောင်) — Senior Android Developer
+# ═══════════════════════════════════════════════════════════════
+
+name: 🔄 Update Profile README
+
+on:
+  schedule:
+    # Run every day at midnight UTC
+    - cron: '0 0 * * *'
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  update-readme:
+    name: Update README with latest stats
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      # ── Step 1: Checkout repository ──────────────────────────
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── Step 2: Setup Python ─────────────────────────────────
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # ── Step 3: Update timestamp in README ───────────────────
+      - name: 🕐 Update Last Updated Timestamp
+        run: |
+          TIMESTAMP=$(date -u "+%Y-%m-%d %H:%M UTC")
+          echo "Last updated: $TIMESTAMP"
+          # Update the timestamp section if it exists
+          if grep -q "<!-- LAST_UPDATED -->" README.md; then
+            sed -i "s|<!-- LAST_UPDATED -->.*<!-- /LAST_UPDATED -->|<!-- LAST_UPDATED -->🕐 Last Updated: $TIMESTAMP<!-- /LAST_UPDATED -->|" README.md
+          fi
+
+      # ── Step 4: Commit changes ────────────────────────────────
+      - name: 💾 Commit and Push Changes
+        run: |
+          git config --global user.name "Moe Kyaw Aung Bot"
+          git config --global user.email "moekyawaung@technologist.com"
+          git add README.md
+          git diff --staged --quiet || git commit -m "🔄 Auto-update README [skip ci] $(date -u '+%Y-%m-%d')"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
